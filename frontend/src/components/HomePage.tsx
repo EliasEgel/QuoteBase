@@ -14,17 +14,14 @@ export default function HomePage() {
           to explore your favorite quotes?
         </p>
 
-        <div className="flex flex-col sm:flex-row items-center gap-3 text-base sm:text-lg flex-wrap">
-          <p>Do you want to</p>
-
-          <Link to="/explore" className="btn w-full sm:w-auto">
+        <div className="flex flex-wrap justify-center items-center gap-2 text-base sm:text-lg">
+          <span>Do you want to</span>
+          <Link to="/explore" className="btn btn-sm sm:btn-md w-auto">
             Explore
           </Link>
-
-          <p>or see your</p>
-
+          <span>or see your</span>
           <div className="flex items-center">
-            <Link to="/library" className="btn w-full sm:w-auto">
+            <Link to="/library" className="btn btn-sm sm:btn-md w-auto">
               Library
             </Link>
             <span className="ml-1">?</span>
