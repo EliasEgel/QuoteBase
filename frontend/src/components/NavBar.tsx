@@ -10,12 +10,10 @@ export default function NavBar() {
   return (
     <div className="navbar sticky top-0 z-50 shadow-md px-4">
       <div className="flex-1 text-xl font-bold">
-        <Link
-            to="/"
-            className="btn btn-ghost text-xl"
-          >
-        <span className="lg:hidden">QB</span>
-        <span className="hidden lg:inline">QuoteBase</span></Link>
+        <Link to="/" className="btn btn-ghost text-xl">
+          <span className="lg:hidden">QB</span>
+          <span className="hidden lg:inline">QuoteBase</span>
+        </Link>
       </div>
 
       <div className="flex-none lg:hidden">
@@ -54,7 +52,7 @@ export default function NavBar() {
               </li>
               <li>
                 <SignOutButton>
-                  <button className="btn">Sign In</button>
+                  <button className="btn">Sign Out</button>
                 </SignOutButton>
               </li>
             </ul>
@@ -77,9 +75,9 @@ export default function NavBar() {
               <a href="https://github.com/EliasEgel/react-mvp">Github</a>
             </li>
             <li className="rounded-lg">
-              <SignOutButton>
-                <button className="btn">Sign In</button>
-              </SignOutButton>
+              <button className="btn">
+                <SignOutButton>Sign Out</SignOutButton>
+              </button>
             </li>
           </ul>
         </SignedIn>
