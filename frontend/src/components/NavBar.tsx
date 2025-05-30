@@ -60,9 +60,9 @@ export default function NavBar() {
                 </button>
               </li>
               <li>
-                <button className="btn">
-                  <SignOutButton>Sign Out</SignOutButton>
-                </button>
+                <SignOutButton>
+                  <button className="btn">Sign Out</button>
+                </SignOutButton>
               </li>
             </ul>
           </div>
@@ -93,9 +93,9 @@ export default function NavBar() {
               </button>
             </li>
             <li className="rounded-lg">
-              <button className="btn">
-                <SignOutButton>Sign Out</SignOutButton>
-              </button>
+              <SignOutButton>
+                <button className="btn">Sign Out</button>
+              </SignOutButton>
             </li>
           </ul>
         </SignedIn>
