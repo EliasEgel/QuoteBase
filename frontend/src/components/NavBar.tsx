@@ -3,6 +3,7 @@ import {
   SignedOut,
   SignInButton,
   SignOutButton,
+  UserButton,
 } from "@clerk/clerk-react";
 import { Link } from "@tanstack/react-router";
 
@@ -60,9 +61,9 @@ export default function NavBar() {
                 </button>
               </li>
               <li>
-                <SignOutButton>
+                <UserButton>
                   <button className="btn">Sign Out</button>
-                </SignOutButton>
+                </UserButton>
               </li>
             </ul>
           </div>
@@ -93,9 +94,9 @@ export default function NavBar() {
               </button>
             </li>
             <li className="rounded-lg">
-              <SignOutButton>
+              <UserButton>
                 <button className="btn">Sign Out</button>
-              </SignOutButton>
+              </UserButton>
             </li>
           </ul>
         </SignedIn>
