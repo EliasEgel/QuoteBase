@@ -50,7 +50,9 @@ export default function NavBar() {
                 </button>
               </li>
               <li>
-                <a>Favorites</a>
+                <button className="btn">
+                  <Link to="/explore">Create</Link>
+                </button>
               </li>
               <li>
                 <a> About</a>
@@ -79,7 +81,9 @@ export default function NavBar() {
               </button>
             </li>
             <li className="rounded-lg">
-              <a href="https://github.com/EliasEgel/react-mvp">Github</a>
+              <button className="btn">
+                <Link to="/explore">Create</Link>
+              </button>
             </li>
             <li className="rounded-lg">
               <a href="https://github.com/EliasEgel/react-mvp">Github</a>
