@@ -5,40 +5,49 @@ export default function HomePage() {
   const { user } = useUser();
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen px-4 text-center">
-      <h1 className="text-4xl font-bold mb-4">Welcome to QuoteBase!</h1>
+    <div className="flex flex-col items-center justify-center min-h-screen px-4 py-8 text-center space-y-6">
+      <h1 className="text-3xl sm:text-4xl font-bold">Welcome to QuoteBase!</h1>
 
       <SignedIn>
-        <p className="text-lg">
+        <p className="text-base sm:text-lg">
           Hello, <span className="font-semibold">{user?.username}</span>! Ready
           to explore your favorite quotes?
         </p>
-        <p className="text-lg">
-          Do you want to{" "}
-          <button className="btn">
-            <Link to="/explore">Explore</Link>
-          </button>{" "}
-          or see your{" "}
-          <button className="btn">
-            <Link to="/library">Library</Link>
-          </button>
-          ?
-        </p>
-        <p className="text-lg">
-          Or{" "}
-          <button className="btn">
-            <Link to="/create">Create</Link>
-          </button>{" "}
-          your own quotes!
-        </p>
+
+        <div className="flex flex-col sm:flex-row items-center gap-3 text-base sm:text-lg flex-wrap">
+          <p>Do you want to</p>
+
+          <Link to="/explore" className="btn w-full sm:w-auto">
+            Explore
+          </Link>
+
+          <p>or see your</p>
+
+          <div className="flex items-center">
+            <Link to="/library" className="btn w-full sm:w-auto">
+              Library
+            </Link>
+            <span className="ml-1">?</span>
+          </div>
+        </div>
+
+        <div className="mt-4 text-base sm:text-lg">
+          <p>Or</p>
+          <Link to="/create" className="btn  mt-2 w-full sm:w-auto">
+            Create
+          </Link>
+          <p className="mt-1">your own quotes!</p>
+        </div>
       </SignedIn>
 
       <SignedOut>
-        <p className="text-lg mb-4">
-          Please sign in to access your favorite Qoutes and saved Books
+        <p className="text-base sm:text-lg">
+          Please sign in to access your favorite quotes and saved books.
         </p>
         <SignInButton>
-          <button className="btn">Sign In</button>
+          <button className="btn btn-primary mt-4 w-full sm:w-auto">
+            Sign In
+          </button>
         </SignInButton>
       </SignedOut>
     </div>
