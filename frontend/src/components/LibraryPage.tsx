@@ -1,5 +1,6 @@
 import { SignedIn, SignedOut, SignInButton, useUser } from "@clerk/clerk-react";
 import { Link } from "@tanstack/react-router";
+import QuoteCard from "./QuoteCard";
 
 export default function LibraryPage() {
   const { user } = useUser();
@@ -57,17 +58,7 @@ export default function LibraryPage() {
           {favorites.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
               {favorites.map((quote) => (
-                <Link key={quote.id} to={`/quote/${quote.id}`}>
-                  <div
-                    key={quote.id}
-                    className="border rounded-lg p-4 shadow hover:bg-gray-50 transition"
-                  >
-                    <p className="italic text-gray-600">"{quote.text}"</p>
-                    <p className="text-sm text-gray-600 mt-2">
-                      — {quote.author}
-                    </p>
-                  </div>
-                </Link>
+                <QuoteCard key={quote.id} id={quote.id} text={quote.text} author={quote.author} />
               ))}
             </div>
           ) : (
