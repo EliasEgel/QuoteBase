@@ -44,6 +44,11 @@ export default function NavBar() {
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow"
             >
+              <li className="rounded-lg">
+                <button className="btn">
+                  <Link to="/explore">Explore</Link>
+                </button>
+              </li>
               <li>
                 <a>Favorites</a>
               </li>
@@ -51,9 +56,9 @@ export default function NavBar() {
                 <a> About</a>
               </li>
               <li>
-                <SignOutButton>
-                  <button className="btn">Sign Out</button>
-                </SignOutButton>
+                <button className="btn">
+                  <SignOutButton>Sign Out</SignOutButton>
+                </button>
               </li>
             </ul>
           </div>
@@ -68,6 +73,11 @@ export default function NavBar() {
         </SignedOut>
         <SignedIn>
           <ul className="menu menu-horizontal px-1">
+            <li className="rounded-lg">
+              <button className="btn">
+                <Link to="/explore">Explore</Link>
+              </button>
+            </li>
             <li className="rounded-lg">
               <a href="https://github.com/EliasEgel/react-mvp">Github</a>
             </li>
