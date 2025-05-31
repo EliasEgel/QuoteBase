@@ -12,7 +12,7 @@ public class User {
     private Long id;
 
     private Long clerkId;
-    
+
     @ManyToMany
     @JoinTable(
             name = "user_favorite_quotes",
