@@ -1,6 +1,7 @@
 package org.example.backend.controllers;
 
 
+import org.example.backend.dtos.QuoteDto;
 import org.example.backend.services.QuoteService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -24,6 +25,7 @@ public class Controller {
 
     @GetMapping("/quotes")
     public ResponseEntity<List<QuoteDto>> getAllQuotes(){
-
+        List<QuoteDto> quoteDtoList = service.getAllQuotes();
+        return ResponseEntity.ok(quoteDtoList);
     }
 }
