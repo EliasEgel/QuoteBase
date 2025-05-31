@@ -1,4 +1,4 @@
-package org.example.backend.services;
+package org.example.backend;
 
 
 import org.springframework.context.annotation.Bean;
