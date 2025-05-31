@@ -33,3 +33,4 @@ build/
 ### VS Code ###
 .vscode/
 /src/main/resources/my-env.properties
+/src/main/resources/data.sql
