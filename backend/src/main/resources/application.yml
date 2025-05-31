@@ -1,0 +1,21 @@
+debug: true
+server:
+  port: 8080
+spring:
+  config:
+    import: "classpath:my-env.properties"
+  datasource:
+    url: ${POSTGRES_LOCATION}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: update
+  sql:
+    init:
+      platform: postgresql
+      mode: never
+  output:
+    ansi:
+      enabled: always

@@ -1,0 +1,13 @@
+services:
+  postgres:
+    image: 'postgres:15'
+    container_name: 'quotebase-postgres'
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=quotebasedb
+    volumes:
+      - ./data/pgdata:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    restart: always

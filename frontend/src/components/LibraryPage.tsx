@@ -1,9 +1,8 @@
-import { SignedIn, SignedOut, SignInButton, useUser } from "@clerk/clerk-react";
-import { Link } from "@tanstack/react-router";
+import { SignedIn, SignedOut, SignInButton, } from "@clerk/clerk-react";
 import QuoteCard from "./QuoteCard";
+import BookCard from "./BookCard";
 
 export default function LibraryPage() {
-  const { user } = useUser();
 
   // Mock data
   const books = [
@@ -33,16 +32,7 @@ export default function LibraryPage() {
           {books.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
               {books.map((book) => (
-                <Link
-                  key={book.id}
-                  to={`/books/${book.id}`}
-                  className="border rounded-lg p-4 shadow hover:bg-gray-50 transition"
-                >
-                  <h3 className="font-bold text-gray-600 text-lg">{book.title}</h3>
-                  <p className="text-sm text-gray-500">
-                    {book.quoteCount} quotes
-                  </p>
-                </Link>
+                <BookCard key={book.id} id={book.id} title={book.title} quoteCount={book.quoteCount} />
               ))}
             </div>
           ) : (
