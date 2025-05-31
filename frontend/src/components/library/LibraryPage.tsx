@@ -1,9 +1,8 @@
-import { SignedIn, SignedOut, SignInButton, } from "@clerk/clerk-react";
-import QuoteCard from "./QuoteCard";
-import BookCard from "./BookCard";
+import { SignedIn, SignedOut, SignInButton } from "@clerk/clerk-react";
+import QuoteCard from "../QuoteCard";
+import BookCard from "../BookCard";
 
 export default function LibraryPage() {
-
   // Mock data
   const books = [
     { id: 1, title: "Inspiration", quoteCount: 5 },
@@ -32,7 +31,12 @@ export default function LibraryPage() {
           {books.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
               {books.map((book) => (
-                <BookCard key={book.id} id={book.id} title={book.title} quoteCount={book.quoteCount} />
+                <BookCard
+                  key={book.id}
+                  id={book.id}
+                  title={book.title}
+                  quoteCount={book.quoteCount}
+                />
               ))}
             </div>
           ) : (
@@ -48,7 +52,12 @@ export default function LibraryPage() {
           {favorites.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
               {favorites.map((quote) => (
-                <QuoteCard key={quote.id} id={quote.id} text={quote.text} author={quote.author} />
+                <QuoteCard
+                  key={quote.id}
+                  id={quote.id}
+                  text={quote.text}
+                  author={quote.author}
+                />
               ))}
             </div>
           ) : (
