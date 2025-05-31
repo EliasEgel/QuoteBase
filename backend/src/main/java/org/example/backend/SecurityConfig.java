@@ -18,6 +18,7 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.GET, "/api/quotes").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/quotes/*").permitAll()
                         .anyRequest().authenticated()
                 )
                 .cors(withDefaults())

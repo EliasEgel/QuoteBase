@@ -35,4 +35,8 @@ public class QuoteService {
                 .map(QuoteDto::mapToDto)
                 .collect(Collectors.toList());
     }
+
+    public QuoteDto getQuote(int quoteId) {
+        return QuoteDto.mapToDto(quoteRepo.findById(quoteId).orElseThrow());
+    }
 }
