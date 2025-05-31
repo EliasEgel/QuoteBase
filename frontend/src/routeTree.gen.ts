@@ -15,6 +15,7 @@ import { Route as LibraryImport } from './routes/library'
 import { Route as ExploreImport } from './routes/explore'
 import { Route as CreateImport } from './routes/create'
 import { Route as IndexImport } from './routes/index'
+import { Route as QuoteIdImport } from './routes/quote/$id'
 
 // Create/Update Routes
 
@@ -39,6 +40,12 @@ const CreateRoute = CreateImport.update({
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const QuoteIdRoute = QuoteIdImport.update({
+  id: '/quote/$id',
+  path: '/quote/$id',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -74,6 +81,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LibraryImport
       parentRoute: typeof rootRoute
     }
+    '/quote/$id': {
+      id: '/quote/$id'
+      path: '/quote/$id'
+      fullPath: '/quote/$id'
+      preLoaderRoute: typeof QuoteIdImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -84,6 +98,7 @@ export interface FileRoutesByFullPath {
   '/create': typeof CreateRoute
   '/explore': typeof ExploreRoute
   '/library': typeof LibraryRoute
+  '/quote/$id': typeof QuoteIdRoute
 }
 
 export interface FileRoutesByTo {
@@ -91,6 +106,7 @@ export interface FileRoutesByTo {
   '/create': typeof CreateRoute
   '/explore': typeof ExploreRoute
   '/library': typeof LibraryRoute
+  '/quote/$id': typeof QuoteIdRoute
 }
 
 export interface FileRoutesById {
@@ -99,14 +115,15 @@ export interface FileRoutesById {
   '/create': typeof CreateRoute
   '/explore': typeof ExploreRoute
   '/library': typeof LibraryRoute
+  '/quote/$id': typeof QuoteIdRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/create' | '/explore' | '/library'
+  fullPaths: '/' | '/create' | '/explore' | '/library' | '/quote/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/create' | '/explore' | '/library'
-  id: '__root__' | '/' | '/create' | '/explore' | '/library'
+  to: '/' | '/create' | '/explore' | '/library' | '/quote/$id'
+  id: '__root__' | '/' | '/create' | '/explore' | '/library' | '/quote/$id'
   fileRoutesById: FileRoutesById
 }
 
@@ -115,6 +132,7 @@ export interface RootRouteChildren {
   CreateRoute: typeof CreateRoute
   ExploreRoute: typeof ExploreRoute
   LibraryRoute: typeof LibraryRoute
+  QuoteIdRoute: typeof QuoteIdRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -122,6 +140,7 @@ const rootRouteChildren: RootRouteChildren = {
   CreateRoute: CreateRoute,
   ExploreRoute: ExploreRoute,
   LibraryRoute: LibraryRoute,
+  QuoteIdRoute: QuoteIdRoute,
 }
 
 export const routeTree = rootRoute
@@ -137,7 +156,8 @@ export const routeTree = rootRoute
         "/",
         "/create",
         "/explore",
-        "/library"
+        "/library",
+        "/quote/$id"
       ]
     },
     "/": {
@@ -151,6 +171,9 @@ export const routeTree = rootRoute
     },
     "/library": {
       "filePath": "library.tsx"
+    },
+    "/quote/$id": {
+      "filePath": "quote/$id.tsx"
     }
   }
 }
