@@ -46,6 +46,13 @@ export default function HomePage() {
             Sign In
           </button>
         </SignInButton>
+        <p className="text-base sm:text-lg">
+          You can still{" "}
+          <Link to="/explore" className="btn btn-sm sm:btn-md w-auto">
+            Explore
+          </Link>{" "}
+          other peoples Quotes!
+        </p>
       </SignedOut>
     </div>
   );
