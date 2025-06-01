@@ -155,5 +155,14 @@ public class QbService {
         book.getQuotes().add(quote);
         bookRepo.save(book);
     }
+
+    public List<QuoteDto> getFavoriteQuotesByClerkId(String clerkId) {
+        User user = userRepo.findByClerkId(clerkId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        return user.getFavoriteQuotes().stream()
+                .map(QuoteDto::mapToDto)
+                .collect(Collectors.toList());
+    }
     
 }

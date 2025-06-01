@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useUserBooks } from "../../hooks/useUserBooks";
 import { useAddQuoteToBook } from "../../hooks/useAddQuoteToBook";
 import { useUser } from "@clerk/clerk-react";

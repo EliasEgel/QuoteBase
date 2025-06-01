@@ -126,4 +126,16 @@ public class Controller {
                     .body(Map.of("error", e.getMessage()));
         }
     }
+    @GetMapping("/favorites")
+    public ResponseEntity<?> getUserFavoriteQuotes(@RequestParam("clerkId") String clerkId) {
+        try {
+            List<QuoteDto> favoriteQuotes = quoteService.getFavoriteQuotesByClerkId(clerkId);
+            return ResponseEntity.ok(favoriteQuotes);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("message", e.getMessage()));
+        }
+    }
+
+
 }
