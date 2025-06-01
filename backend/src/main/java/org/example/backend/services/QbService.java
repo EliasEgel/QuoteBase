@@ -164,5 +164,20 @@ public class QbService {
                 .map(QuoteDto::mapToDto)
                 .collect(Collectors.toList());
     }
-    
+
+    public void removeQuoteFromBook(int bookId, int quoteId) {
+        Book book = bookRepo.findById(bookId)
+                .orElseThrow(() -> new RuntimeException("Book not found"));
+
+        Quote quote = quoteRepo.findById(quoteId)
+                .orElseThrow(() -> new RuntimeException("Quote not found"));
+
+        if (!book.getQuotes().contains(quote)) {
+            throw new RuntimeException("Quote is not part of the book");
+        }
+
+        book.getQuotes().remove(quote);
+        bookRepo.save(book);
+    }
+
 }

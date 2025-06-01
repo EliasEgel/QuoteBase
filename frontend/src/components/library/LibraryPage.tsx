@@ -1,20 +1,10 @@
 import { SignedIn, SignedOut, SignInButton } from "@clerk/clerk-react";
-import QuoteCard from "../QuoteCard";
 import UserBooksSection from "./UserBooksSection";
 import UserFavoritesSection from "./UserFavoritesSection";
 
 export default function LibraryPage() {
 
 
-  const favorites = [
-    {
-      id: 1,
-      text: "Be yourself; everyone else is taken.",
-      author: "Oscar Wilde",
-    },
-    { id: 2, text: "So it goes.", author: "Kurt Vonnegut" },
-    { id: 3, text: "Stay hungry. Stay foolish.", author: "Steve Jobs" },
-  ];
 
   return (
     <div className="px-4 py-6 max-w-5xl mx-auto space-y-8">

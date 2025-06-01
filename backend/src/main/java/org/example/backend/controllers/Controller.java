@@ -137,5 +137,15 @@ public class Controller {
         }
     }
 
+    @DeleteMapping("/books/{bookId}/quotes/{quoteId}")
+    public ResponseEntity<?> removeQuoteFromBook(@PathVariable int bookId, @PathVariable int quoteId) {
+        try {
+            quoteService.removeQuoteFromBook(bookId, quoteId);
+            return ResponseEntity.ok(Map.of("message", "Quote removed from book successfully"));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("error", e.getMessage()));
+        }
+    }
 
 }
