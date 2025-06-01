@@ -2,6 +2,8 @@ import { useQuote } from "../../hooks/useQuote";
 import { useUser } from "@clerk/clerk-react";
 import { useRemoveFavorite } from "../../hooks/useRemoveFavorite";
 import { useAddFavorite } from "../../hooks/useAddFavorite";
+import AddToBookDropdown from "./AddToBookDropdown";
+
 
 type QuotePageProp = {
   id: string;
@@ -37,7 +39,7 @@ export default function QuotePage({ id }: QuotePageProp) {
       </blockquote>
 
       {user && (
-        <>
+        <div className="space-y-2">
           {quote.isFavoritedByUser ? (
             <button
               className="btn btn-outline btn-error"
@@ -55,7 +57,10 @@ export default function QuotePage({ id }: QuotePageProp) {
               {isAdding ? "Adding..." : "Add to Favorites"}
             </button>
           )}
-        </>
+
+          {/* Add To Book */}
+          {user && <AddToBookDropdown quoteId={Number(id)} />}
+        </div>
       )}
     </div>
   );

@@ -115,4 +115,15 @@ public class Controller {
                     .body(Map.of("message", e.getMessage()));
         }
     }
+
+    @PostMapping("/books/{bookId}/quotes/{quoteId}")
+    public ResponseEntity<?> addQuoteToBook(@PathVariable int bookId, @PathVariable int quoteId) {
+        try {
+            quoteService.addQuoteToBook(bookId, quoteId);
+            return ResponseEntity.ok(Map.of("message", "Quote added to book successfully"));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("error", e.getMessage()));
+        }
+    }
 }
