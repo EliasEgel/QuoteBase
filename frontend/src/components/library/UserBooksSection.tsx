@@ -22,12 +22,11 @@ export default function UserBooksSection() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {books.map(
             (
-              book: { id?: number; title: string; quoteCount: number },
-              index: number
+              book: { id: number; title: string; quoteCount: number }
             ) => (
               <BookCard
-                key={book.id ?? index}
-                id={book.id ?? index}
+                key={book.id }
+                id={book.id}
                 title={book.title}
                 quoteCount={book.quoteCount}
               />

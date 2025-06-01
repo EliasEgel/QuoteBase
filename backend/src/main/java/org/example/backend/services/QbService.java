@@ -73,6 +73,7 @@ public class QbService {
 
         return bookRepo.save(book);
     }
+    
     public List<BookResponseDto> getBooksByClerkId(String clerkId) {
         User user = userRepo.findByClerkId(clerkId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -137,5 +138,9 @@ public class QbService {
         user.getFavoriteQuotes().add(quote);
         userRepo.save(user);
     }
-
+    public BookWithQuotesDto getBookById(int bookId) {
+        Book book = bookRepo.findById(bookId)
+                .orElseThrow(() -> new RuntimeException("Book not found"));
+        return BookWithQuotesDto.mapToDto(book);
+    }
 }

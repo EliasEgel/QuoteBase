@@ -104,4 +104,15 @@ public class Controller {
                     .body(Map.of("message", e.getMessage()));
         }
     }
+
+    @GetMapping("/books/{id}")
+    public ResponseEntity<?> getBookById(@PathVariable("id") int bookId) {
+        try {
+            BookWithQuotesDto bookDto = quoteService.getBookById(bookId);
+            return ResponseEntity.ok(bookDto);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("message", e.getMessage()));
+        }
+    }
 }
