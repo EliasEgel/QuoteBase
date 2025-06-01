@@ -1,6 +1,6 @@
 import { SignedIn, SignedOut, SignInButton } from "@clerk/clerk-react";
 import QuoteCard from "../QuoteCard";
-import BookCard from "../BookCard";
+import UserBooksSection from "./UserBooksSection";
 
 export default function LibraryPage() {
   // Mock data
@@ -26,25 +26,7 @@ export default function LibraryPage() {
 
       <SignedIn>
         {/* BOOKS SECTION */}
-        <section>
-          <h2 className="text-xl font-semibold border-b pb-1 mb-3">Books</h2>
-          {books.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              {books.map((book) => (
-                <BookCard
-                  key={book.id}
-                  id={book.id}
-                  title={book.title}
-                  quoteCount={book.quoteCount}
-                />
-              ))}
-            </div>
-          ) : (
-            <p className="text-sm text-gray-500">
-              You haven’t created any books yet.
-            </p>
-          )}
-        </section>
+        <UserBooksSection />
 
         {/* FAVORITE QUOTES SECTION */}
         <section>

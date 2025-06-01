@@ -1,13 +1,29 @@
-import { useState } from "react";
+import { useUser } from '@clerk/clerk-react';
+import { useAddBook } from '../../hooks/useAddBook'; // adjust path if needed
+import { useState } from 'react';
 
 export default function CreateBookForm() {
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState('');
+  const { user } = useUser();
+  const addBookMutation = useAddBook();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Send book data to backend
-    alert(`Book Created: ${title}`);
-    setTitle("");
+    if (!user) return;
+
+    const clerkId = user.id;
+    addBookMutation.mutate(
+      { title, clerkId },
+      {
+        onSuccess: () => {
+          alert(`Book Created: ${title}`);
+          setTitle('');
+        },
+        onError: (error: Error) => {
+          alert(`Error: ${error.message}`);
+        },
+      }
+    );
   };
 
   return (
@@ -24,8 +40,8 @@ export default function CreateBookForm() {
         />
       </label>
 
-      <button type="submit" className="btn btn-primary w-full">
-        Create Book
+      <button type="submit" className="btn btn-primary w-full" disabled={addBookMutation.isPending}>
+        {addBookMutation.isPending ? 'Creating...' : 'Create Book'}
       </button>
     </form>
   );

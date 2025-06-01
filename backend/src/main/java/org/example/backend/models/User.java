@@ -11,7 +11,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long clerkId;
+    private String clerkId;
 
     @ManyToMany
     @JoinTable(
@@ -32,11 +32,11 @@ public class User {
         this.id = id;
     }
 
-    public Long getClerkId() {
+    public String getClerkId() {
         return clerkId;
     }
 
-    public void setClerkId(Long clerkId) {
+    public void setClerkId(String clerkId) {
         this.clerkId = clerkId;
     }
 
