@@ -1,10 +1,7 @@
 package org.example.backend.controllers;
 
 
-import org.example.backend.dtos.BookRequestDto;
-import org.example.backend.dtos.BookResponseDto;
-import org.example.backend.dtos.QuoteDto;
-import org.example.backend.dtos.QuoteRequestDto;
+import org.example.backend.dtos.*;
 import org.example.backend.models.Book;
 import org.example.backend.models.Quote;
 import org.example.backend.services.QbService;
@@ -27,22 +24,26 @@ public class Controller {
         this.quoteService = service;
     }
 
-
     @GetMapping("/quotes")
     public ResponseEntity<List<QuoteDto>> getAllQuotes(){
         List<QuoteDto> quoteDtoList = quoteService.getAllQuotes();
         return ResponseEntity.ok(quoteDtoList);
     }
+
     @GetMapping("/quotes/{id}")
-    public ResponseEntity<?> getQuote(@PathVariable("id") int id){
-        try{
-            QuoteDto quoteDto = quoteService.getQuote(id);
+    public ResponseEntity<?> getQuote(
+            @PathVariable("id") int id,
+            @RequestParam(value = "clerkId", required = false) String clerkId
+    ) {
+        try {
+            QuoteDto quoteDto = quoteService.getQuote(id, clerkId);
             return ResponseEntity.ok(quoteDto);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(Map.of("message", e.getMessage()));
         }
     }
+
     @PostMapping("/books")
     public ResponseEntity<?> addBook(@RequestBody BookRequestDto bookRequestDto) {
         try {
@@ -57,6 +58,7 @@ public class Controller {
                     .body(Map.of("message", e.getMessage()));
         }
     }
+
     @GetMapping("/books")
     public ResponseEntity<?> getUserBooks(@RequestParam("clerkId") String clerkId) {
         try {
@@ -66,13 +68,39 @@ public class Controller {
             return ResponseEntity.ok(new ArrayList<>());
         }
     }
+
     @PostMapping("/quotes")
     public ResponseEntity<?> createQuote(@RequestBody QuoteRequestDto dto) {
         try {
-            QuoteDto saved = QuoteDto.mapToDto(quoteService.addQuote(dto));
+            QuoteDto saved = QuoteDto.mapToDto(quoteService.addQuote(dto), true);
             return ResponseEntity.status(HttpStatus.CREATED).body(saved);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("message", e.getMessage()));
+        }
+    }
+
+    @DeleteMapping("/favorites")
+    public ResponseEntity<?> removeFavorite(@RequestBody FavoriteRemovalRequest request) {
+        try {
+            quoteService.removeFavoriteQuote(request);
+            return ResponseEntity.ok(Map.of("message", "Favorite removed"));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("message", e.getMessage()));
+        }
+    }
+
+    @PostMapping("/favorites")
+    public ResponseEntity<?> addFavorite(
+            @RequestParam("clerkId") String clerkId,
+            @RequestParam("quoteId") int quoteId
+    ) {
+        try {
+            quoteService.addFavorite(clerkId, quoteId);
+            return ResponseEntity.ok(Map.of("message", "Quote favorited"));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(Map.of("message", e.getMessage()));
         }
     }

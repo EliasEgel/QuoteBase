@@ -1,9 +1,6 @@
 package org.example.backend.services;
 
-import org.example.backend.dtos.BookRequestDto;
-import org.example.backend.dtos.BookResponseDto;
-import org.example.backend.dtos.QuoteDto;
-import org.example.backend.dtos.QuoteRequestDto;
+import org.example.backend.dtos.*;
 import org.example.backend.models.Book;
 import org.example.backend.models.Quote;
 import org.example.backend.models.User;
@@ -14,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,8 +40,20 @@ public class QbService {
                 .collect(Collectors.toList());
     }
 
-    public QuoteDto getQuote(int quoteId) {
-        return QuoteDto.mapToDto(quoteRepo.findById(quoteId).orElseThrow());
+    public QuoteDto getQuote(int quoteId, String clerkId) {
+        Quote quote = quoteRepo.findById(quoteId).orElseThrow();
+
+        boolean isFavorited = false;
+
+        if (clerkId != null && !clerkId.isBlank()) {
+            Optional<User> userOpt = userRepo.findByClerkId(clerkId);
+            if (userOpt.isPresent()) {
+                User user = userOpt.get();
+                isFavorited = user.getFavoriteQuotes().contains(quote);
+            }
+        }
+
+        return QuoteDto.mapToDto(quote, isFavorited);
     }
 
     @Transactional
@@ -95,6 +105,37 @@ public class QbService {
         savedQuote.getFavoritedByUsers().add(user);
 
         return savedQuote;
+    }
+    @Transactional
+    public void removeFavoriteQuote(FavoriteRemovalRequest request) {
+        User user = userRepo.findByClerkId(request.clerkId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        Quote quote = quoteRepo.findById(request.quoteId())
+                .orElseThrow(() -> new RuntimeException("Quote not found"));
+
+        user.getFavoriteQuotes().remove(quote);
+        quote.getFavoritedByUsers().remove(user);
+
+        userRepo.save(user);
+        quoteRepo.save(quote);
+    }
+
+    public void addFavorite(String clerkId, int quoteId) {
+        User user = userRepo.findByClerkId(clerkId)
+                .orElseGet(() -> {
+                    User newUser = new User();
+                    newUser.setClerkId(clerkId);
+
+                    return userRepo.save(newUser);
+                }
+                ); // Auto-create user if not found
+
+        Quote quote = quoteRepo.findById(quoteId)
+                .orElseThrow(() -> new RuntimeException("Quote not found"));
+
+        user.getFavoriteQuotes().add(quote);
+        userRepo.save(user);
     }
 
 }
