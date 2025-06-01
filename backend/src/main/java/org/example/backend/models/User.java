@@ -1,6 +1,8 @@
 package org.example.backend.models;
 
 import jakarta.persistence.*;
+
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -19,7 +21,7 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "quote_id")
     )
-    private Set<Quote> favoriteQuotes;
+    private Set<Quote> favoriteQuotes = new HashSet<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Book> books;

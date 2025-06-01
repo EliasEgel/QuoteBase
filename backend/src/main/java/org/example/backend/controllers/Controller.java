@@ -4,7 +4,9 @@ package org.example.backend.controllers;
 import org.example.backend.dtos.BookRequestDto;
 import org.example.backend.dtos.BookResponseDto;
 import org.example.backend.dtos.QuoteDto;
+import org.example.backend.dtos.QuoteRequestDto;
 import org.example.backend.models.Book;
+import org.example.backend.models.Quote;
 import org.example.backend.services.QbService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -62,6 +64,16 @@ public class Controller {
             return ResponseEntity.ok(books);
         } catch (Exception e) {
             return ResponseEntity.ok(new ArrayList<>());
+        }
+    }
+    @PostMapping("/quotes")
+    public ResponseEntity<?> createQuote(@RequestBody QuoteRequestDto dto) {
+        try {
+            QuoteDto saved = QuoteDto.mapToDto(quoteService.addQuote(dto));
+            return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("message", e.getMessage()));
         }
     }
 }

@@ -3,6 +3,7 @@ package org.example.backend.services;
 import org.example.backend.dtos.BookRequestDto;
 import org.example.backend.dtos.BookResponseDto;
 import org.example.backend.dtos.QuoteDto;
+import org.example.backend.dtos.QuoteRequestDto;
 import org.example.backend.models.Book;
 import org.example.backend.models.Quote;
 import org.example.backend.models.User;
@@ -69,6 +70,31 @@ public class QbService {
         return user.getBooks().stream()
                 .map(BookResponseDto::mapToDto)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public Quote addQuote(QuoteRequestDto dto) {
+        // Find or create user
+        User user = userRepo.findByClerkId(dto.clerkId())
+                .orElseGet(() -> {
+                    User newUser = new User();
+                    newUser.setClerkId(dto.clerkId());
+                    return userRepo.save(newUser);
+                });
+
+        // Create quote
+        Quote quote = new Quote();
+        quote.setText(dto.text());
+        quote.setAuthor(dto.author());
+        quote.setSource(dto.source());
+
+        Quote savedQuote = quoteRepo.save(quote);
+
+        // Add to user's favorites
+        user.getFavoriteQuotes().add(savedQuote);
+        savedQuote.getFavoritedByUsers().add(user);
+
+        return savedQuote;
     }
 
 }

@@ -3,12 +3,7 @@ import QuoteCard from "../QuoteCard";
 import UserBooksSection from "./UserBooksSection";
 
 export default function LibraryPage() {
-  // Mock data
-  const books = [
-    { id: 1, title: "Inspiration", quoteCount: 5 },
-    { id: 2, title: "Wisdom", quoteCount: 3 },
-    { id: 3, title: "Love", quoteCount: 8 },
-  ];
+
 
   const favorites = [
     {

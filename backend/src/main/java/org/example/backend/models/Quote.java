@@ -1,6 +1,8 @@
 package org.example.backend.models;
 
 import jakarta.persistence.*;
+
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -23,7 +25,7 @@ public class Quote {
 
     // Many-to-many with users who favorited this quote
     @ManyToMany(mappedBy = "favoriteQuotes")
-    private Set<User> favoritedByUsers;
+    private Set<User> favoritedByUsers= new HashSet<>();
 
     public Long getId() {
         return id;

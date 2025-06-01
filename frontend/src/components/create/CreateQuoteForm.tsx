@@ -1,17 +1,39 @@
 import { useState } from "react";
+import { useUser } from "@clerk/clerk-react";
+import { useAddQuote } from "../../hooks/useAddQuote"; // adjust path
 
 export default function CreateQuoteForm() {
   const [text, setText] = useState("");
   const [author, setAuthor] = useState("");
   const [source, setSource] = useState("");
+  const { user } = useUser();
+  const addQuote = useAddQuote();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Send quote data to backend
-    alert(`Quote Created:\n"${text}" - ${author}`);
-    setText("");
-    setAuthor("");
-    setSource("");
+
+    if (!user) return alert("User not authenticated");
+
+    addQuote.mutate(
+      {
+        text,
+        author,
+        source,
+        clerkId: user.id,
+      },
+      {
+        onSuccess: () => {
+          alert(`Quote Created:\n"${text}" - ${author}`);
+          setText("");
+          setAuthor("");
+          setSource("");
+        },
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        onError: (error: any) => {
+          alert(`Error: ${error.message}`);
+        },
+      }
+    );
   };
 
   return (
@@ -49,8 +71,8 @@ export default function CreateQuoteForm() {
         />
       </label>
 
-      <button type="submit" className="btn btn-primary w-full">
-        Create Quote
+      <button type="submit" className="btn btn-primary w-full" disabled={addQuote.isPending}>
+        {addQuote.isPending ? "Creating..." : "Create Quote"}
       </button>
     </form>
   );
