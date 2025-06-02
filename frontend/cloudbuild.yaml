@@ -1,0 +1,15 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - build
+      - '--build-arg'
+      - VITE_CLERK_PUBLISHABLE_KEY=${_VITE_CLERK_PUBLISHABLE_KEY}
+      - '--build-arg'
+      - VITE_API_PATH=${_VITE_API_PATH}
+      - '-t'
+      - gcr.io/$PROJECT_ID/quotebase-frontend
+      - '.'
+    dir: frontend  # if your Dockerfile is in frontend/
+
+images:
+  - gcr.io/$PROJECT_ID/quotebase-frontend
