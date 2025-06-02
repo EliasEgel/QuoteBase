@@ -9,7 +9,7 @@ steps:
       - '-t'
       - gcr.io/$PROJECT_ID/quotebase-frontend
       - '.'
-    dir: frontend  # if your Dockerfile is in frontend/
+    dir: frontend 
 
 images:
   - gcr.io/$PROJECT_ID/quotebase-frontend
