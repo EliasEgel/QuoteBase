@@ -23,3 +23,12 @@ services:
       - ISSUER_URI=${ISSUER_URI}
     depends_on:
       - postgres
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:80"
+    environment:
+      - VITE_CLERK_PUBLISHABLE_KEY=${VITE_CLERK_PUBLISHABLE_KEY}
+      - VITE_API_PATH=${VITE_API_PATH}

@@ -9,7 +9,8 @@ type BookCardProps = {
 export default function QuoteCard({ id, title, quoteCount }: BookCardProps) {
   return (
     <Link
-      to={`/book/${id}`}
+      to="/book/$id"
+      params={{ id: id.toString() }}
       className="border rounded-lg p-4 shadow hover:bg-gray-50 transition"
     >
       <h3 className="font-bold text-gray-600 text-lg">{title}</h3>
