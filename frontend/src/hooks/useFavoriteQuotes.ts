@@ -2,13 +2,14 @@ import { useAuth } from "@clerk/clerk-react";
 import { useQuery } from "@tanstack/react-query";
 
 export function useFavoriteQuotes(clerkId: string) {
+  const API_PATH = import.meta.env.VITE_API_PATH;
   const { getToken } = useAuth();
 
   return useQuery({
     queryKey: ["favoriteQuotes", clerkId],
     queryFn: async () => {
       const token = await getToken();
-      const res = await fetch(`http://localhost:8080/api/favorites?clerkId=${clerkId}`, {
+      const res = await fetch(`${API_PATH}/favorites?clerkId=${clerkId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

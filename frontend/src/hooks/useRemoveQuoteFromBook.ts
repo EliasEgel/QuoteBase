@@ -4,6 +4,7 @@ import { useAuth } from "@clerk/clerk-react";
 export function useRemoveQuoteFromBook() {
   const { getToken } = useAuth();
   const queryClient = useQueryClient();
+  const API_PATH = import.meta.env.VITE_API_PATH;
 
   return useMutation({
     mutationFn: async ({
@@ -13,10 +14,11 @@ export function useRemoveQuoteFromBook() {
       bookId: number;
       quoteId: number;
     }) => {
+      
       const token = await getToken();
 
       const res = await fetch(
-        `http://localhost:8080/api/books/${bookId}/quotes/${quoteId}`,
+        `${API_PATH}/books/${bookId}/quotes/${quoteId}`,
         {
           method: "DELETE",
           headers: {

@@ -3,7 +3,8 @@ import { useAuth } from '@clerk/clerk-react';
 import type { Book } from '../types/book';
 
 const addBook = async (newBook: Book, token: string | null) => {
-  const response = await fetch('http://localhost:8080/api/books', {
+  const API_PATH = import.meta.env.VITE_API_PATH;
+  const response = await fetch(`${API_PATH}/books`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

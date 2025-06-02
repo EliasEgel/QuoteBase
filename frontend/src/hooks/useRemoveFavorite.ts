@@ -5,11 +5,13 @@ import { useAuth } from '@clerk/clerk-react';
 export function useRemoveFavorite() {
   const { getToken } = useAuth();
   const queryClient = useQueryClient();
+  
 
   return useMutation({
     mutationFn: async ({ clerkId, quoteId }: { clerkId: string; quoteId: number }) => {
       const token = await getToken();
-      const res = await fetch('http://localhost:8080/api/favorites', {
+      const API_PATH = import.meta.env.VITE_API_PATH;
+      const res = await fetch(`${API_PATH}/favorites`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

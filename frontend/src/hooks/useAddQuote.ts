@@ -5,7 +5,8 @@ import type { QuotePayload } from '../types/quotePayload';
 
 
 const addQuote = async (quote: QuotePayload, token: string | null) => {
-  const response = await fetch('http://localhost:8080/api/quotes', {
+  const API_PATH = import.meta.env.VITE_API_PATH;
+  const response = await fetch(`${API_PATH}/quotes`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

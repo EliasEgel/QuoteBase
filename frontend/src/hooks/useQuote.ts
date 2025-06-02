@@ -3,7 +3,8 @@ import { useUser } from "@clerk/clerk-react";
 import type { Quote } from "../types/quote";
 
 const fetchQuoteById = async (id: string, clerkId?: string): Promise<Quote> => {
-  const url = new URL(`http://localhost:8080/api/quotes/${id}`);
+  const API_PATH = import.meta.env.VITE_API_PATH;
+  const url = new URL(`${API_PATH}/quotes/${id}`);
   if (clerkId) {
     url.searchParams.set("clerkId", clerkId);
   }
