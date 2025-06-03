@@ -8,7 +8,7 @@ export const Route = createFileRoute("/library")({
 
 function RouteComponent() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-8 text-center">
+    <div className="text-center">
       <SignedIn>
         <LibraryPage />
       </SignedIn>

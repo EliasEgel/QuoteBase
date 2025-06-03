@@ -23,8 +23,8 @@ export default function QuoteCard({ id, title, quoteCount }: BookCardProps) {
           (e.currentTarget.style.backgroundColor = "#87aca3")
         }
     >
-      <h3 className="font-bold text-gray-600 text-lg">{title}</h3>
-      <p className="text-sm text-gray-500">{quoteCount} quotes</p>
+      <h3 className="font-bold text-lg">{title}</h3>
+      <p className="text-sm">{quoteCount} quotes</p>
     </Link>
   );
 }
