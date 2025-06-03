@@ -49,7 +49,7 @@ export default function UserFavoritesSection() {
                 className="px-4 py-2 rounded text-white transition-colors"
                 style={{ backgroundColor: "#2b7c85" }}
                 onMouseEnter={(e) =>
-                  (e.currentTarget.style.backgroundColor = "#87aca3")
+                  (e.currentTarget.style.backgroundColor = "#0c1446")
                 }
                 onMouseLeave={(e) =>
                   (e.currentTarget.style.backgroundColor = "#2b7c85")
@@ -64,7 +64,7 @@ export default function UserFavoritesSection() {
                 className="px-4 py-2 rounded text-white transition-colors"
                 style={{ backgroundColor: "#2b7c85" }}
                 onMouseEnter={(e) =>
-                  (e.currentTarget.style.backgroundColor = "#87aca3")
+                  (e.currentTarget.style.backgroundColor = "#0c1446")
                 }
                 onMouseLeave={(e) =>
                   (e.currentTarget.style.backgroundColor = "#2b7c85")

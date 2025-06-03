@@ -24,23 +24,19 @@ export default function BookPage({ id }: BookPageProps) {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-12 space-y-6 text-[#0c1446] mt-16">
+    <div className="max-w-4xl mx-auto px-4 py-12 space-y-6 text-[#0c1446] mt-16 text-center">
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold">{book.title}</h1>
+        <h1 className="text-2xl font-bold text-center">{book.title}</h1>
         {user && (
           <button
             onClick={() => setIsEditing((prev) => !prev)}
-            className="px-3 py-1 border rounded text-sm transition-colors"
-            style={{
-              borderColor: "#175873",
-              color: "#175873",
-              backgroundColor: "transparent",
-            }}
+            className="btn btn-sm text-white transition-colors"
+            style={{ backgroundColor: "#2b7c85" }}
             onMouseEnter={(e) =>
-              (e.currentTarget.style.backgroundColor = "#87aca3")
+              (e.currentTarget.style.backgroundColor = "#0c1446")
             }
             onMouseLeave={(e) =>
-              (e.currentTarget.style.backgroundColor = "transparent")
+              (e.currentTarget.style.backgroundColor = "#2b7c85")
             }
           >
             {isEditing ? "Done" : "Edit"}
@@ -51,31 +47,31 @@ export default function BookPage({ id }: BookPageProps) {
       {book.quotes.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {book.quotes.map((quote: any) => (
-            <div key={quote.id} className="relative group">
+            <div key={quote.id} className="relative group h-full">
+              {/* Disable navigation when editing */}
               <div
-                className={isEditing ? "pointer-events-none opacity-70" : ""}
+                className={`h-full ${isEditing ? "pointer-events-none opacity-70" : ""}`}
               >
-                <QuoteCard
-                  id={quote.id}
-                  text={quote.text}
-                  author={quote.author}
-                />
+                <div className="h-full flex flex-col">
+                  <QuoteCard
+                    id={quote.id}
+                    text={quote.text}
+                    author={quote.author}
+                  />
+                </div>
               </div>
 
               {user && isEditing && (
                 <button
                   onClick={() => handleRemove(quote.id)}
                   disabled={isPending}
-                  className="absolute top-2 right-2 text-xs px-2 py-1 rounded text-white transition-colors"
-                  style={{
-                    backgroundColor: "#ba4b4b",
-                    opacity: isPending ? 0.6 : 1,
-                  }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.backgroundColor = "#e57373")
+                  className="absolute top-2 right-2 text-xs text-white btn btn-sm transition-colors"
+                  style={{ backgroundColor: "#dc2626" }}
+                  onMouseEnter={
+                    (e) => (e.currentTarget.style.backgroundColor = "#b91c1c") // deeper red
                   }
                   onMouseLeave={(e) =>
-                    (e.currentTarget.style.backgroundColor = "#ba4b4b")
+                    (e.currentTarget.style.backgroundColor = "#dc2626")
                   }
                 >
                   ✕ Remove
