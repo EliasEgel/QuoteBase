@@ -19,7 +19,7 @@ export default function ExplorePage() {
   };
 
   return (
-    <div className="px-4 py-8 max-w-3xl mx-auto space-y-6">
+    <div className="mt-16 px-4 py-8 max-w-3xl mx-auto space-y-6 text-[#0c1446]">
       <ExploreHeader />
       <SearchBar onSearch={handleSearch} />
 
@@ -27,7 +27,7 @@ export default function ExplorePage() {
       {error && <p className="text-red-500">Error: {error.message}</p>}
 
       {!isLoading && !error && quotes.length === 0 ? (
-        <p className="text-center text-gray-500 text-sm">
+        <p className="text-center text-sm text-[#0c1446]">
           No quotes found{search ? ` for "${search}"` : ""}.
         </p>
       ) : (
@@ -39,22 +39,41 @@ export default function ExplorePage() {
       )}
 
       <div className="flex justify-center gap-4 pt-6">
-        <button
-          onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
-          disabled={page === 0 || isLoading}
-          className="px-4 py-2 border rounded disabled:opacity-50"
-        >
-          Previous
-        </button>
-        <button
-          onClick={() => setPage((prev) => prev + 1)}
-          disabled={isLastPage || isLoading}
-          className="px-4 py-2 border rounded disabled:opacity-50"
-        >
-          Next
-        </button>
+        {!isLoading && page > 0 && (
+          <button
+            onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
+            className="px-4 py-2 rounded text-white transition-colors"
+            style={{
+              backgroundColor: "#2b7c85",
+            }}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.backgroundColor = "#87aca3")
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.backgroundColor = "#2b7c85")
+            }
+          >
+            Previous
+          </button>
+        )}
+        {!isLoading && !isLastPage && (
+          <button
+            onClick={() => setPage((prev) => prev + 1)}
+            className="px-4 py-2 rounded text-white transition-colors"
+            style={{
+              backgroundColor: "#2b7c85",
+            }}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.backgroundColor = "#87aca3")
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.backgroundColor = "#2b7c85")
+            }
+          >
+            Next
+          </button>
+        )}
       </div>
     </div>
   );
 }
-

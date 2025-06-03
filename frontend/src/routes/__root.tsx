@@ -8,9 +8,14 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   return (
-    <div style={{ backgroundColor: "#87aca3", minHeight: "100vh" }}>
+    <div
+      className="flex flex-col min-h-screen"
+      style={{ backgroundColor: "#87aca3" }}
+    >
       <NavBar />
-      <Outlet />
+      <main className="flex-grow">
+        <Outlet />
+      </main>
       <Footer />
     </div>
   );
