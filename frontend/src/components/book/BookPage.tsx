@@ -24,13 +24,24 @@ export default function BookPage({ id }: BookPageProps) {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8 space-y-6">
+    <div className="max-w-4xl mx-auto px-4 py-12 space-y-6 text-[#0c1446] mt-16">
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-center">{book.title}</h1>
+        <h1 className="text-2xl font-bold">{book.title}</h1>
         {user && (
           <button
             onClick={() => setIsEditing((prev) => !prev)}
-            className="btn btn-sm btn-outline"
+            className="px-3 py-1 border rounded text-sm transition-colors"
+            style={{
+              borderColor: "#175873",
+              color: "#175873",
+              backgroundColor: "transparent",
+            }}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.backgroundColor = "#87aca3")
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.backgroundColor = "transparent")
+            }
           >
             {isEditing ? "Done" : "Edit"}
           </button>
@@ -41,8 +52,9 @@ export default function BookPage({ id }: BookPageProps) {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {book.quotes.map((quote: any) => (
             <div key={quote.id} className="relative group">
-              {/* If editing, disable navigation */}
-              <div className={isEditing ? "pointer-events-none opacity-70" : ""}>
+              <div
+                className={isEditing ? "pointer-events-none opacity-70" : ""}
+              >
                 <QuoteCard
                   id={quote.id}
                   text={quote.text}
@@ -53,8 +65,18 @@ export default function BookPage({ id }: BookPageProps) {
               {user && isEditing && (
                 <button
                   onClick={() => handleRemove(quote.id)}
-                  className="absolute top-2 right-2 text-xs btn btn-error btn-sm"
                   disabled={isPending}
+                  className="absolute top-2 right-2 text-xs px-2 py-1 rounded text-white transition-colors"
+                  style={{
+                    backgroundColor: "#ba4b4b",
+                    opacity: isPending ? 0.6 : 1,
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.backgroundColor = "#e57373")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.backgroundColor = "#ba4b4b")
+                  }
                 >
                   ✕ Remove
                 </button>
@@ -63,10 +85,10 @@ export default function BookPage({ id }: BookPageProps) {
           ))}
         </div>
       ) : (
-        <p className="text-center text-gray-500">This book has no quotes yet.</p>
+        <p className="text-center text-gray-600">
+          This book has no quotes yet.
+        </p>
       )}
     </div>
   );
 }
-
-
