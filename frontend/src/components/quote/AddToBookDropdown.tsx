@@ -23,13 +23,16 @@ export default function AddToBookDropdown({ quoteId }: AddToBookDropdownProps) {
   };
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-4 text-[#0c1446] mt-4">
       <select
-        className="select select-bordered w-full"
+        className="w-full p-2 border rounded"
+        style={{ borderColor: "#175873" }}
         onChange={(e) => setSelectedBookId(Number(e.target.value))}
         value={selectedBookId || ""}
       >
-        <option disabled value="">Select a book</option>
+        <option disabled value="">
+          Select a book
+        </option>
         {books.map((book: any) => {
           const alreadyHasQuote = book.quoteIds.includes(quoteId);
           return (
@@ -40,14 +43,25 @@ export default function AddToBookDropdown({ quoteId }: AddToBookDropdownProps) {
         })}
       </select>
 
-      <button
-        className="btn btn-primary w-full"
-        onClick={handleAdd}
-        disabled={!selectedBookId || isPending}
-      >
-        {isPending ? "Adding..." : "Add Quote to Book"}
-      </button>
+      {selectedBookId && (
+        <button
+          onClick={handleAdd}
+          disabled={isPending}
+          className="w-full text-white rounded py-2 transition-colors"
+          style={{
+            backgroundColor: "#2b7c85",
+            opacity: isPending ? 0.6 : 1,
+          }}
+          onMouseEnter={(e) => {
+            if (!isPending) e.currentTarget.style.backgroundColor = "#0c1446";
+          }}
+          onMouseLeave={(e) => {
+            if (!isPending) e.currentTarget.style.backgroundColor = "#2b7c85";
+          }}
+        >
+          {isPending ? "Adding..." : "Add Quote to Book"}
+        </button>
+      )}
     </div>
   );
 }
-
