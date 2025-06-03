@@ -173,4 +173,13 @@ public class Controller {
         }
     }
 
+    @GetMapping("/created")
+    public ResponseEntity<Page<QuoteDto>> getCreatedQuotes(
+            @RequestParam String clerkId,
+            Pageable pageable
+    ) {
+        Page<QuoteDto> quotes = quoteService.getQuotesCreatedByUser(clerkId, pageable);
+        return ResponseEntity.ok(quotes);
+    }
+
 }

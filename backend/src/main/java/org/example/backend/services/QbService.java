@@ -221,4 +221,15 @@ public class QbService {
         quoteRepo.delete(quote);
     }
 
+    public Page<QuoteDto> getQuotesCreatedByUser(String clerkId, Pageable pageable) {
+        User user = userRepo.findByClerkId(clerkId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        return quoteRepo.findByCreator(user, pageable)
+                .map(quote -> {
+                    boolean isFavorited = quote.getFavoritedByUsers().contains(user);
+                    return QuoteDto.mapToDto(quote, isFavorited, true);
+                });
+    }
+
 }

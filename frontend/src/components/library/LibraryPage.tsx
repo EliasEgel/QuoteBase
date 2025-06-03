@@ -1,6 +1,7 @@
 import { SignedIn, SignedOut, SignInButton } from "@clerk/clerk-react";
 import UserBooksSection from "./UserBooksSection";
 import UserFavoritesSection from "./UserFavoritesSection";
+import UserCreatedQuotesSection from "./UserCreatedQuotesSection";
 
 export default function LibraryPage() {
   return (
@@ -13,6 +14,9 @@ export default function LibraryPage() {
 
         {/* FAVORITE QUOTES SECTION */}
         <UserFavoritesSection />
+
+        {/* CREATED QUOTES SECTION */}
+        <UserCreatedQuotesSection />
       </SignedIn>
 
       <SignedOut>
