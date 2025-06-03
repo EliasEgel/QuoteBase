@@ -30,10 +30,11 @@ public class Controller {
     @GetMapping("/quotes")
     public ResponseEntity<Page<QuoteDto>> getAllQuotes(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(required = false) String search
     ) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<QuoteDto> quoteDtoPage = quoteService.getAllQuotes(pageable);
+        Page<QuoteDto> quoteDtoPage = quoteService.getAllQuotes(search, pageable);
         return ResponseEntity.ok(quoteDtoPage);
     }
 

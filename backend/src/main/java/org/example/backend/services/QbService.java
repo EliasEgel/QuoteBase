@@ -29,8 +29,15 @@ public class QbService {
         this.bookRepo = bookRepo;
     }
 
-    public Page<QuoteDto> getAllQuotes(Pageable pageable) {
-        Page<Quote> quotes = quoteRepo.findAll(pageable);
+    public Page<QuoteDto> getAllQuotes(String search, Pageable pageable) {
+        Page<Quote> quotes;
+
+        if (search != null && !search.isBlank()) {
+            quotes = quoteRepo.findByTextContainingIgnoreCase(search, pageable);
+        } else {
+            quotes = quoteRepo.findAll(pageable);
+        }
+
         return mapQuotesToDtos(quotes);
     }
     public Page<QuoteDto> mapQuotesToDtos(Page<Quote> quotes) {
