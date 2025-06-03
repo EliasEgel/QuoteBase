@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -186,6 +187,7 @@ public class QbService {
 
         return new PageImpl<>(pagedList, pageable, dtoList.size());
     }
+
     public void removeQuoteFromBook(int bookId, int quoteId) {
         Book book = bookRepo.findById(bookId)
                 .orElseThrow(() -> new RuntimeException("Book not found"));
@@ -199,6 +201,24 @@ public class QbService {
 
         book.getQuotes().remove(quote);
         bookRepo.save(book);
+    }
+
+    @Transactional
+    public void deleteQuoteById(int quoteId) {
+        Quote quote = quoteRepo.findById(quoteId)
+                .orElseThrow(() -> new RuntimeException("Quote not found"));
+
+        // Remove quote from all books
+        for (Book book : new HashSet<>(quote.getBooks())) {
+            book.getQuotes().remove(quote);
+        }
+
+        // Remove quote from all users' favorites
+        for (User user : new HashSet<>(quote.getFavoritedByUsers())) {
+            user.getFavoriteQuotes().remove(quote);
+        }
+
+        quoteRepo.delete(quote);
     }
 
 }

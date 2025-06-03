@@ -162,4 +162,15 @@ public class Controller {
         }
     }
 
+    @DeleteMapping("/quotes/{id}")
+    public ResponseEntity<?> deleteQuote(@PathVariable int id) {
+        try {
+            quoteService.deleteQuoteById(id);
+            return ResponseEntity.ok(Map.of("message", "Quote deleted successfully"));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("message", e.getMessage()));
+        }
+    }
+
 }

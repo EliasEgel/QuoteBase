@@ -2,7 +2,9 @@ import { useQuote } from "../../hooks/useQuote";
 import { useUser } from "@clerk/clerk-react";
 import { useRemoveFavorite } from "../../hooks/useRemoveFavorite";
 import { useAddFavorite } from "../../hooks/useAddFavorite";
+import { useDeleteQuote } from "../../hooks/useDeleteQuote";
 import AddToBookDropdown from "./AddToBookDropdown";
+import { useNavigate } from "@tanstack/react-router";
 
 type QuotePageProp = {
   id: string;
@@ -10,9 +12,11 @@ type QuotePageProp = {
 
 export default function QuotePage({ id }: QuotePageProp) {
   const { user } = useUser();
+  const navigate = useNavigate();
   const { data: quote, isLoading, error } = useQuote(id);
   const { mutate: removeFavorite, isPending: isRemoving } = useRemoveFavorite();
   const { mutate: addFavorite, isPending: isAdding } = useAddFavorite();
+  const { mutate: deleteQuote, isPending: isDeleting } = useDeleteQuote();
 
   if (isLoading) return <div>Loading...</div>;
   if (error instanceof Error) return <div>Error: {error.message}</div>;
@@ -26,6 +30,17 @@ export default function QuotePage({ id }: QuotePageProp) {
   const handleAddFavorite = () => {
     if (!user) return;
     addFavorite(Number(id));
+  };
+
+  const handleDeleteQuote = () => {
+    if (!user) return;
+    if (window.confirm("Are you sure you want to delete this quote?")) {
+      deleteQuote(Number(id), {
+        onSuccess: () => {
+          navigate({ to: "/library" });
+        },
+      });
+    }
   };
 
   return (
@@ -89,8 +104,19 @@ export default function QuotePage({ id }: QuotePageProp) {
           )}
 
           <AddToBookDropdown quoteId={Number(id)} />
+
+          {quote.isCreatedByUser && (
+            <button
+              onClick={handleDeleteQuote}
+              disabled={isDeleting}
+              className="w-full sm:w-auto px-4 py-2 rounded text-white transition-colors bg-red-600 hover:bg-red-700"
+            >
+              {isDeleting ? "Deleting..." : "Delete Quote"}
+            </button>
+          )}
         </div>
       )}
     </div>
   );
 }
+
