@@ -11,7 +11,17 @@ export default function QuoteCard({ id, title, quoteCount }: BookCardProps) {
     <Link
       to="/book/$id"
       params={{ id: id.toString() }}
-      className="border rounded-lg p-4 shadow hover:bg-gray-50 transition"
+      className="rounded-lg p-4 shadow transition-colors"
+        style={{
+          backgroundColor: "#87aca3", // Seafoam background
+          border: "1px solid #2b7c85", // Teal border
+        }}
+        onMouseEnter={(e) =>
+          (e.currentTarget.style.backgroundColor = "#a6bfb7") // slightly lighter seafoam hover
+        }
+        onMouseLeave={(e) =>
+          (e.currentTarget.style.backgroundColor = "#87aca3")
+        }
     >
       <h3 className="font-bold text-gray-600 text-lg">{title}</h3>
       <p className="text-sm text-gray-500">{quoteCount} quotes</p>
