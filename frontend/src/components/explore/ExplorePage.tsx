@@ -1,51 +1,27 @@
-// components/explore/ExplorePage.tsx
 import { useState } from "react";
 import ExploreHeader from "./ExploreHeader";
 import QuoteCard from "../QuoteCard";
 import { useQuotes } from "../../hooks/useQuotes";
+import SearchBar from "./SearchBar";
 
 export default function ExplorePage() {
   const [page, setPage] = useState(0);
   const [search, setSearch] = useState("");
-  const [inputValue, setInputValue] = useState("");
 
   const { data: quotesPage, isLoading, error } = useQuotes(page, 6, search);
   const totalPages = quotesPage?.totalPages ?? 0;
   const isLastPage = page >= totalPages - 1;
-
   const quotes = quotesPage?.content ?? [];
 
-  const handleSearch = () => {
+  const handleSearch = (term: string) => {
     setPage(0); // Reset pagination
-    setSearch(inputValue.trim());
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      handleSearch();
-    }
+    setSearch(term);
   };
 
   return (
     <div className="px-4 py-8 max-w-3xl mx-auto space-y-6">
       <ExploreHeader />
-
-      <div className="flex gap-2 mb-4">
-        <input
-          type="text"
-          placeholder="Search quotes..."
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          onKeyDown={handleKeyDown}
-          className="flex-1 px-3 py-2 border rounded"
-        />
-        <button
-          onClick={handleSearch}
-          className="px-4 py-2 bg-blue-600 text-white rounded"
-        >
-          Search
-        </button>
-      </div>
+      <SearchBar onSearch={handleSearch} />
 
       {isLoading && <p>Loading quotes...</p>}
       {error && <p className="text-red-500">Error: {error.message}</p>}
@@ -81,3 +57,4 @@ export default function ExplorePage() {
     </div>
   );
 }
+
