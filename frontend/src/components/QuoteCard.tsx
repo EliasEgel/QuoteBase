@@ -7,11 +7,25 @@ type QuoteCardProps = {
 };
 
 export default function QuoteCard({ id, text, author }: QuoteCardProps) {
+  const preview = text.length > 50 ? text.slice(0, 50) + "..." : text;
+
   return (
     <Link to="/quote/$id" params={{ id: id.toString() }}>
-      <div className="border rounded-lg p-4 shadow hover:bg-gray-50 transition">
-        <p className="italic text-gray-600">"{text}"</p>
-        <p className="text-sm text-gray-600 mt-2">— {author}</p>
+      <div
+        className="rounded-lg p-4 shadow transition-colors"
+        style={{
+          backgroundColor: "#87aca3", // Seafoam background
+          border: "1px solid #2b7c85", // Teal border
+        }}
+        onMouseEnter={(e) =>
+          (e.currentTarget.style.backgroundColor = "#a6bfb7") // slightly lighter seafoam hover
+        }
+        onMouseLeave={(e) =>
+          (e.currentTarget.style.backgroundColor = "#87aca3")
+        }
+      >
+        <p className="italic text-[#0c1446]">"{preview}"</p>
+        <p className="text-sm text-[#0c1446] mt-2 font-medium">— {author}</p>
       </div>
     </Link>
   );
