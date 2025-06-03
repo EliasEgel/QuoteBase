@@ -25,11 +25,19 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
         onKeyDown={handleKeyDown}
-        className="flex-1 px-3 py-2 border rounded"
+        className="flex-1 px-3 py-2 border rounded text-[#0c1446]"
+        style={{ borderColor: "#175873" }}
       />
       <button
         onClick={handleSearch}
-        className="px-4 py-2 bg-blue-600 text-white rounded"
+        className="px-4 py-2 text-white rounded transition-colors"
+        style={{ backgroundColor: "#2b7c85" }}
+        onMouseEnter={(e) =>
+          (e.currentTarget.style.backgroundColor = "#0c1446")
+        }
+        onMouseLeave={(e) =>
+          (e.currentTarget.style.backgroundColor = "#2b7c85")
+        }
       >
         Search
       </button>
