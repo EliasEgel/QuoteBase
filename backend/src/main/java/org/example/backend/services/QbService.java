@@ -7,6 +7,8 @@ import org.example.backend.models.User;
 import org.example.backend.repositories.BookRepository;
 import org.example.backend.repositories.QuoteRepository;
 import org.example.backend.repositories.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,18 +28,16 @@ public class QbService {
         this.bookRepo = bookRepo;
     }
 
-    public List<QuoteDto> getAllQuotes() {
-        return mapQuotesToDtos(quoteRepo.findAll());
+    public Page<QuoteDto> getAllQuotes(Pageable pageable) {
+        Page<Quote> quotes = quoteRepo.findAll(pageable);
+        return mapQuotesToDtos(quotes);
     }
-
-    public List<QuoteDto> mapQuotesToDtos(List<Quote> quotes) {
+    public Page<QuoteDto> mapQuotesToDtos(Page<Quote> quotes) {
         if (quotes == null) {
-            return List.of();
+            return Page.empty();
         }
 
-        return quotes.stream()
-                .map(QuoteDto::mapToDto)
-                .collect(Collectors.toList());
+        return quotes.map(QuoteDto::mapToDto);
     }
 
     public QuoteDto getQuote(int quoteId, String clerkId) {

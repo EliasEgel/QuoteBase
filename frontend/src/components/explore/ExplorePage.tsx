@@ -1,22 +1,42 @@
+import { useState } from "react";
 import ExploreHeader from "./ExploreHeader";
 import QuoteCard from "../QuoteCard";
 import { useQuotes } from "../../hooks/useQuotes";
-import type { JSX } from "react/jsx-runtime";
 
 export default function ExplorePage() {
-  const { data: quotes, isLoading, error } = useQuotes();
+  const [page, setPage] = useState(0);
+  const { data: quotesPage, isLoading, error } = useQuotes(page);
+
+  const quotes = quotesPage?.content ?? [];
 
   return (
     <div className="px-4 py-8 max-w-3xl mx-auto space-y-6">
       <ExploreHeader />
 
       {isLoading && <p>Loading quotes...</p>}
-      {error instanceof Error && <p className="text-red-500">Error: {error.message}</p>}
+      {error && <p className="text-red-500">Error: {error.message}</p>}
 
       <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-        {quotes?.map((quote: JSX.IntrinsicAttributes & { id: number; text: string; author: string; }) => (
+        {quotes.map((quote) => (
           <QuoteCard key={quote.id} {...quote} />
         ))}
+      </div>
+
+      <div className="flex justify-center gap-4 pt-6">
+        <button
+          onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
+          disabled={page === 0}
+          className="px-4 py-2 border rounded disabled:opacity-50"
+        >
+          Previous
+        </button>
+        <button
+          onClick={() => setPage((prev) => prev + 1)}
+          disabled={page + 1 >= (quotesPage?.totalPages ?? 1)}
+          className="px-4 py-2 border rounded"
+        >
+          Next
+        </button>
       </div>
     </div>
   );

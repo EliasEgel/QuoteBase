@@ -5,6 +5,9 @@ import org.example.backend.dtos.*;
 import org.example.backend.models.Book;
 import org.example.backend.models.Quote;
 import org.example.backend.services.QbService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,9 +28,13 @@ public class Controller {
     }
 
     @GetMapping("/quotes")
-    public ResponseEntity<List<QuoteDto>> getAllQuotes(){
-        List<QuoteDto> quoteDtoList = quoteService.getAllQuotes();
-        return ResponseEntity.ok(quoteDtoList);
+    public ResponseEntity<Page<QuoteDto>> getAllQuotes(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<QuoteDto> quoteDtoPage = quoteService.getAllQuotes(pageable);
+        return ResponseEntity.ok(quoteDtoPage);
     }
 
     @GetMapping("/quotes/{id}")

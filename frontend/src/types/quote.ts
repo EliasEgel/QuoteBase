@@ -5,3 +5,10 @@ export type Quote = {
   source?: string;
   isFavoritedByUser: boolean;
 };
+export type PagedResponse<T> = {
+  content: T[];
+  totalPages: number;
+  totalElements: number;
+  size: number;
+  number: number;
+};
