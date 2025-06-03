@@ -27,6 +27,10 @@ public class Quote {
     @ManyToMany(mappedBy = "favoriteQuotes")
     private Set<User> favoritedByUsers= new HashSet<>();
 
+    @ManyToOne
+    @JoinColumn(name = "creator_id")
+    private User creator;
+
     public Long getId() {
         return id;
     }
@@ -75,7 +79,12 @@ public class Quote {
         this.favoritedByUsers = favoritedByUsers;
     }
 
-    // Getters and setters
-    // ...
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
 }
 

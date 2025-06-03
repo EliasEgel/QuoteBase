@@ -20,7 +20,7 @@ export default function CreatePage() {
           }}
           onMouseEnter={(e) =>
             (e.currentTarget.style.backgroundColor =
-              type === "book" ? "#87aca3" : "#f0f5f3")
+              type === "book" ? "#0c1446" : "#0c1446")
           }
           onMouseLeave={(e) =>
             (e.currentTarget.style.backgroundColor =
@@ -39,7 +39,7 @@ export default function CreatePage() {
           }}
           onMouseEnter={(e) =>
             (e.currentTarget.style.backgroundColor =
-              type === "quote" ? "#87aca3" : "#f0f5f3")
+              type === "quote" ? "#0c1446" : "#0c1446")
           }
           onMouseLeave={(e) =>
             (e.currentTarget.style.backgroundColor =

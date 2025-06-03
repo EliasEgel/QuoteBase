@@ -4,6 +4,7 @@ export type Quote = {
   author: string;
   source?: string;
   isFavoritedByUser: boolean;
+  isCreatedByUser: boolean;
 };
 export type PagedResponse<T> = {
   content: T[];

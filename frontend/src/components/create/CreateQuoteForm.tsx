@@ -84,7 +84,7 @@ export default function CreateQuoteForm() {
         }}
         onMouseEnter={(e) => {
           if (!addQuote.isPending)
-            e.currentTarget.style.backgroundColor = "#87aca3";
+            e.currentTarget.style.backgroundColor = "#0c1446";
         }}
         onMouseLeave={(e) => {
           if (!addQuote.isPending)

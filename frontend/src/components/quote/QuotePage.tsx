@@ -31,9 +31,17 @@ export default function QuotePage({ id }: QuotePageProp) {
   return (
     <div className="max-w-xl mx-auto px-4 py-12 space-y-6 text-[#0c1446] mt-16">
       <div
-        className="rounded-lg p-6 shadow-md"
+        className="rounded-lg p-6 shadow-md relative"
         style={{ backgroundColor: "#87aca3", border: "1px solid #175873" }}
       >
+        {quote.isCreatedByUser && (
+          <div
+            className="absolute top-2 right-2 text-yellow-400"
+            title="You created this quote"
+          >
+            ⭐
+          </div>
+        )}
         <blockquote className="text-xl italic leading-relaxed">
           “{quote.text}”
           <footer className="mt-4 text-right text-base font-medium">

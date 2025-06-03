@@ -51,7 +51,7 @@ export default function CreateBookForm() {
         }}
         onMouseEnter={(e) => {
           if (!addBookMutation.isPending)
-            e.currentTarget.style.backgroundColor = "#87aca3";
+            e.currentTarget.style.backgroundColor = "#0c1446";
         }}
         onMouseLeave={(e) => {
           if (!addBookMutation.isPending)

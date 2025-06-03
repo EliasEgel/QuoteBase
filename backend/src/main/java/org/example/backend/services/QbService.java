@@ -40,6 +40,7 @@ public class QbService {
 
         return mapQuotesToDtos(quotes);
     }
+
     public Page<QuoteDto> mapQuotesToDtos(Page<Quote> quotes) {
         if (quotes == null) {
             return Page.empty();
@@ -52,16 +53,18 @@ public class QbService {
         Quote quote = quoteRepo.findById(quoteId).orElseThrow();
 
         boolean isFavorited = false;
+        boolean isCreatedBy = false;
 
         if (clerkId != null && !clerkId.isBlank()) {
             Optional<User> userOpt = userRepo.findByClerkId(clerkId);
             if (userOpt.isPresent()) {
                 User user = userOpt.get();
                 isFavorited = user.getFavoriteQuotes().contains(quote);
+                isCreatedBy = user.getCreatedQuotes().contains(quote);
             }
         }
 
-        return QuoteDto.mapToDto(quote, isFavorited);
+        return QuoteDto.mapToDto(quote, isFavorited, isCreatedBy);
     }
 
     @Transactional
@@ -106,6 +109,7 @@ public class QbService {
         quote.setText(dto.text());
         quote.setAuthor(dto.author());
         quote.setSource(dto.source());
+        quote.setCreator(user); // Set creator
 
         Quote savedQuote = quoteRepo.save(quote);
 
@@ -115,6 +119,8 @@ public class QbService {
 
         return savedQuote;
     }
+
+
     @Transactional
     public void removeFavoriteQuote(FavoriteRemovalRequest request) {
         User user = userRepo.findByClerkId(request.clerkId())

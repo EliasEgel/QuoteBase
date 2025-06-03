@@ -26,6 +26,9 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Book> books;
 
+    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Quote> createdQuotes = new HashSet<>();
+
     public Long getId() {
         return id;
     }
@@ -56,6 +59,14 @@ public class User {
 
     public void setBooks(Set<Book> books) {
         this.books = books;
+    }
+
+    public Set<Quote> getCreatedQuotes() {
+        return createdQuotes;
+    }
+
+    public void setCreatedQuotes(Set<Quote> createdQuotes) {
+        this.createdQuotes = createdQuotes;
     }
 }
 

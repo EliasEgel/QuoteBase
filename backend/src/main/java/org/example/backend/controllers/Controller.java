@@ -80,7 +80,7 @@ public class Controller {
     @PostMapping("/quotes")
     public ResponseEntity<?> createQuote(@RequestBody QuoteRequestDto dto) {
         try {
-            QuoteDto saved = QuoteDto.mapToDto(quoteService.addQuote(dto), true);
+            QuoteDto saved = QuoteDto.mapToDto(quoteService.addQuote(dto));
             return ResponseEntity.status(HttpStatus.CREATED).body(saved);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
