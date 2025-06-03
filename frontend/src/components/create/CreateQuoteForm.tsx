@@ -37,14 +37,15 @@ export default function CreateQuoteForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-6 text-[#0c1446]">
       <label className="block">
         <span className="text-sm font-medium">Quote Text</span>
         <textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="e.g., The only limit is your imagination."
-          className="textarea textarea-bordered w-full"
+          className="w-full p-2 border rounded"
+          style={{ borderColor: "#175873" }}
           required
         />
       </label>
@@ -56,7 +57,8 @@ export default function CreateQuoteForm() {
           value={author}
           onChange={(e) => setAuthor(e.target.value)}
           placeholder="e.g., Albert Einstein"
-          className="input input-bordered w-full"
+          className="w-full p-2 border rounded"
+          style={{ borderColor: "#175873" }}
         />
       </label>
 
@@ -67,11 +69,28 @@ export default function CreateQuoteForm() {
           value={source}
           onChange={(e) => setSource(e.target.value)}
           placeholder="e.g., Book or Website"
-          className="input input-bordered w-full"
+          className="w-full p-2 border rounded"
+          style={{ borderColor: "#175873" }}
         />
       </label>
 
-      <button type="submit" className="btn btn-primary w-full" disabled={addQuote.isPending}>
+      <button
+        type="submit"
+        disabled={addQuote.isPending}
+        className="w-full text-white rounded py-2 transition-colors"
+        style={{
+          backgroundColor: addQuote.isPending ? "#87aca3" : "#2b7c85",
+          opacity: addQuote.isPending ? 0.6 : 1,
+        }}
+        onMouseEnter={(e) => {
+          if (!addQuote.isPending)
+            e.currentTarget.style.backgroundColor = "#87aca3";
+        }}
+        onMouseLeave={(e) => {
+          if (!addQuote.isPending)
+            e.currentTarget.style.backgroundColor = "#2b7c85";
+        }}
+      >
         {addQuote.isPending ? "Creating..." : "Create Quote"}
       </button>
     </form>
