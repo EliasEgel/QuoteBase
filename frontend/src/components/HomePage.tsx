@@ -6,8 +6,8 @@ export default function HomePage() {
 
   return (
     <div
-      className="flex flex-col items-center justify-start min-h-screen px-4 pt-20 text-center space-y-6"
-      style={{ backgroundColor: '#87aca3' }}
+      className="flex flex-col items-center justify-start px-4 pt-20 text-center space-y-6"
+      style={{ backgroundColor: "#87aca3" }}
     >
       <h1 className="text-3xl sm:text-4xl font-bold text-[#0c1446]">
         Welcome to QuoteBase!
@@ -24,7 +24,13 @@ export default function HomePage() {
           <Link
             to="/explore"
             className="btn btn-sm sm:btn-md w-auto text-white"
-            style={{ backgroundColor: '#2b7c85' }}
+            style={{ backgroundColor: "#2b7c85" }}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.backgroundColor = "#0c1446")
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.backgroundColor = "#2b7c85")
+            }
           >
             Explore
           </Link>
@@ -33,7 +39,13 @@ export default function HomePage() {
             <Link
               to="/library"
               className="btn btn-sm sm:btn-md w-auto text-white"
-              style={{ backgroundColor: '#2b7c85' }}
+              style={{ backgroundColor: "#2b7c85" }}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.backgroundColor = "#0c1446")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.backgroundColor = "#2b7c85")
+              }
             >
               Library
             </Link>
@@ -46,7 +58,13 @@ export default function HomePage() {
           <Link
             to="/create"
             className="btn mt-2 w-full sm:w-auto text-white"
-            style={{ backgroundColor: '#2b7c85' }}
+            style={{ backgroundColor: "#2b7c85" }}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.backgroundColor = "#0c1446")
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.backgroundColor = "#2b7c85")
+            }
           >
             Create
           </Link>
@@ -61,7 +79,13 @@ export default function HomePage() {
         <SignInButton>
           <button
             className="btn mt-4 w-full sm:w-auto text-white"
-            style={{ backgroundColor: '#2b7c85' }}
+            style={{ backgroundColor: "#2b7c85" }}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.backgroundColor = "#0c1446")
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.backgroundColor = "#2b7c85")
+            }
           >
             Sign In
           </button>
@@ -71,7 +95,13 @@ export default function HomePage() {
           <Link
             to="/explore"
             className="btn btn-sm sm:btn-md w-auto text-white"
-            style={{ backgroundColor: '#2b7c85' }}
+            style={{ backgroundColor: "#2b7c85" }}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.backgroundColor = "#0c1446")
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.backgroundColor = "#2b7c85")
+            }
           >
             Explore
           </Link>{" "}
@@ -81,4 +111,3 @@ export default function HomePage() {
     </div>
   );
 }
-

@@ -28,6 +28,12 @@ export default function NavBar() {
             <button
               className="btn text-white"
               style={{ backgroundColor: "#2b7c85" }}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.backgroundColor = "#0c1446")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.backgroundColor = "#2b7c85")
+              }
             >
               Sign In
             </button>
@@ -61,6 +67,12 @@ export default function NavBar() {
                   to="/explore"
                   className="btn text-white hover:bg-[#87aca3]"
                   style={{ backgroundColor: "#2b7c85" }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.backgroundColor = "#0c1446")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.backgroundColor = "#2b7c85")
+                  }
                 >
                   Explore
                 </Link>
@@ -70,6 +82,12 @@ export default function NavBar() {
                   to="/create"
                   className="btn text-white hover:bg-[#87aca3]"
                   style={{ backgroundColor: "#2b7c85" }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.backgroundColor = "#0c1446")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.backgroundColor = "#2b7c85")
+                  }
                 >
                   Create
                 </Link>
@@ -79,6 +97,12 @@ export default function NavBar() {
                   to="/library"
                   className="btn text-white hover:bg-[#87aca3]"
                   style={{ backgroundColor: "#2b7c85" }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.backgroundColor = "#0c1446")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.backgroundColor = "#2b7c85")
+                  }
                 >
                   Library
                 </Link>
@@ -109,6 +133,12 @@ export default function NavBar() {
                 to="/explore"
                 className="btn text-white hover:bg-[#87aca3]"
                 style={{ backgroundColor: "#2b7c85" }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.backgroundColor = "#0c1446")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.backgroundColor = "#2b7c85")
+                }
               >
                 Explore
               </Link>
@@ -118,6 +148,12 @@ export default function NavBar() {
                 to="/create"
                 className="btn text-white hover:bg-[#87aca3]"
                 style={{ backgroundColor: "#2b7c85" }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.backgroundColor = "#0c1446")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.backgroundColor = "#2b7c85")
+                }
               >
                 Create
               </Link>
@@ -127,6 +163,12 @@ export default function NavBar() {
                 to="/library"
                 className="btn text-white hover:bg-[#87aca3]"
                 style={{ backgroundColor: "#2b7c85" }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.backgroundColor = "#0c1446")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.backgroundColor = "#2b7c85")
+                }
               >
                 Library
               </Link>
