@@ -8,9 +8,15 @@ import { Link } from "@tanstack/react-router";
 
 export default function NavBar() {
   return (
-    <div className="navbar sticky top-0 z-50 shadow-md px-4">
+    <div
+      className="navbar sticky top-0 z-50 shadow-md px-4"
+      style={{ backgroundColor: "#175873" }}
+    >
       <div className="flex-1 text-xl font-bold">
-        <Link to="/" className="btn btn-ghost text-xl">
+        <Link
+          to="/"
+          className="btn btn-ghost text-xl text-white hover:bg-[#0c1446] transition-colors duration-200"
+        >
           <span className="lg:hidden">QB</span>
           <span className="hidden lg:inline">QuoteBase</span>
         </Link>
@@ -19,12 +25,17 @@ export default function NavBar() {
       <div className="flex-none lg:hidden">
         <SignedOut>
           <SignInButton>
-            <button className="btn">Sign In</button>
+            <button
+              className="btn text-white"
+              style={{ backgroundColor: "#2b7c85" }}
+            >
+              Sign In
+            </button>
           </SignInButton>
         </SignedOut>
         <SignedIn>
           <div className="dropdown dropdown-end">
-            <label tabIndex={0} className="btn btn-ghost">
+            <label tabIndex={0} className="btn btn-ghost text-white">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
@@ -42,22 +53,35 @@ export default function NavBar() {
             </label>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow"
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow rounded-lg"
+              style={{ backgroundColor: "#2b7c85" }}
             >
-              <li className="rounded-lg">
-                <button className="btn">
-                  <Link to="/explore">Explore</Link>
-                </button>
+              <li>
+                <Link
+                  to="/explore"
+                  className="btn text-white hover:bg-[#87aca3]"
+                  style={{ backgroundColor: "#2b7c85" }}
+                >
+                  Explore
+                </Link>
               </li>
               <li>
-                <button className="btn">
-                  <Link to="/create">Create</Link>
-                </button>
+                <Link
+                  to="/create"
+                  className="btn text-white hover:bg-[#87aca3]"
+                  style={{ backgroundColor: "#2b7c85" }}
+                >
+                  Create
+                </Link>
               </li>
               <li>
-                <button className="btn">
-                  <Link to="/library">Library</Link>
-                </button>
+                <Link
+                  to="/library"
+                  className="btn text-white hover:bg-[#87aca3]"
+                  style={{ backgroundColor: "#2b7c85" }}
+                >
+                  Library
+                </Link>
               </li>
               <li>
                 <UserButton />
@@ -70,27 +94,44 @@ export default function NavBar() {
       <div className="hidden lg:flex">
         <SignedOut>
           <SignInButton>
-            <button className="btn">Sign In</button>
+            <button
+              className="btn text-white"
+              style={{ backgroundColor: "#2b7c85" }}
+            >
+              Sign In
+            </button>
           </SignInButton>
         </SignedOut>
         <SignedIn>
           <ul className="menu menu-horizontal px-1">
-            <li className="rounded-lg">
-              <button className="btn">
-                <Link to="/explore">Explore</Link>
-              </button>
+            <li>
+              <Link
+                to="/explore"
+                className="btn text-white hover:bg-[#87aca3]"
+                style={{ backgroundColor: "#2b7c85" }}
+              >
+                Explore
+              </Link>
             </li>
-            <li className="rounded-lg">
-              <button className="btn">
-                <Link to="/create">Create</Link>
-              </button>
+            <li>
+              <Link
+                to="/create"
+                className="btn text-white hover:bg-[#87aca3]"
+                style={{ backgroundColor: "#2b7c85" }}
+              >
+                Create
+              </Link>
             </li>
-            <li className="rounded-lg">
-              <button className="btn">
-                <Link to="/library">Library</Link>
-              </button>
+            <li>
+              <Link
+                to="/library"
+                className="btn text-white hover:bg-[#87aca3]"
+                style={{ backgroundColor: "#2b7c85" }}
+              >
+                Library
+              </Link>
             </li>
-            <li className="rounded-lg">
+            <li>
               <UserButton />
             </li>
           </ul>
