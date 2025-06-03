@@ -6,6 +6,8 @@ import { useQuotes } from "../../hooks/useQuotes";
 export default function ExplorePage() {
   const [page, setPage] = useState(0);
   const { data: quotesPage, isLoading, error } = useQuotes(page);
+  const totalPages = quotesPage?.totalPages ?? 0;
+  const isLastPage = page >= totalPages - 1;
 
   const quotes = quotesPage?.content ?? [];
 
@@ -25,15 +27,15 @@ export default function ExplorePage() {
       <div className="flex justify-center gap-4 pt-6">
         <button
           onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
-          disabled={page === 0}
+          disabled={page === 0 || isLoading}
           className="px-4 py-2 border rounded disabled:opacity-50"
         >
           Previous
         </button>
         <button
           onClick={() => setPage((prev) => prev + 1)}
-          disabled={page + 1 >= (quotesPage?.totalPages ?? 1)}
-          className="px-4 py-2 border rounded"
+          disabled={isLastPage || isLoading}
+          className="px-4 py-2 border rounded disabled:opacity-50"
         >
           Next
         </button>

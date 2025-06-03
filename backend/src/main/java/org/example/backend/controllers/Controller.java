@@ -133,10 +133,16 @@ public class Controller {
                     .body(Map.of("error", e.getMessage()));
         }
     }
+
     @GetMapping("/favorites")
-    public ResponseEntity<?> getUserFavoriteQuotes(@RequestParam("clerkId") String clerkId) {
+    public ResponseEntity<?> getUserFavoriteQuotes(
+            @RequestParam("clerkId") String clerkId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "6") int size
+    ) {
         try {
-            List<QuoteDto> favoriteQuotes = quoteService.getFavoriteQuotesByClerkId(clerkId);
+            Pageable pageable = PageRequest.of(page, size);
+            Page<QuoteDto> favoriteQuotes = quoteService.getFavoriteQuotesByClerkId(clerkId, pageable);
             return ResponseEntity.ok(favoriteQuotes);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)

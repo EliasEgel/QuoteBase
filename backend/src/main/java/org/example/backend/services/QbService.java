@@ -8,6 +8,7 @@ import org.example.backend.repositories.BookRepository;
 import org.example.backend.repositories.QuoteRepository;
 import org.example.backend.repositories.UserRepository;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -156,15 +157,22 @@ public class QbService {
         bookRepo.save(book);
     }
 
-    public List<QuoteDto> getFavoriteQuotesByClerkId(String clerkId) {
+    public Page<QuoteDto> getFavoriteQuotesByClerkId(String clerkId, Pageable pageable) {
         User user = userRepo.findByClerkId(clerkId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        return user.getFavoriteQuotes().stream()
+        List<Quote> allFavorites = user.getFavoriteQuotes().stream().toList();
+        List<QuoteDto> dtoList = allFavorites.stream()
                 .map(QuoteDto::mapToDto)
                 .collect(Collectors.toList());
-    }
 
+        int start = (int) pageable.getOffset();
+        int end = Math.min(start + pageable.getPageSize(), dtoList.size());
+
+        List<QuoteDto> pagedList = dtoList.subList(start, end);
+
+        return new PageImpl<>(pagedList, pageable, dtoList.size());
+    }
     public void removeQuoteFromBook(int bookId, int quoteId) {
         Book book = bookRepo.findById(bookId)
                 .orElseThrow(() -> new RuntimeException("Book not found"));
