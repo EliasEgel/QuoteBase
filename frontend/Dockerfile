@@ -1,28 +1,23 @@
-FROM node:18 AS build
-
+# Stage 1: Build
+FROM node:20 AS build
 WORKDIR /app
-
-COPY package*.json ./
-
-RUN npm install
-
 COPY . .
 
-ARG VITE_REACT_APP_TEST_1
-ENV VITE_REACT_APP_TEST_1=${VITE_REACT_APP_TEST_1}
+ARG VITE_CLERK_PUBLISHABLE_KEY
+ARG VITE_API_PATH
 
-RUN echo THE VAL IS $VITE_REACT_APP_TEST_1
+ENV VITE_CLERK_PUBLISHABLE_KEY=$VITE_CLERK_PUBLISHABLE_KEY
+ENV VITE_API_PATH=$VITE_API_PATH
 
+RUN npm install
 COPY .env.production .env
-
 RUN npm run build
 
+
+# Stage 2: Serve
 FROM nginx:alpine
-
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-COPY --from=build /app/dist /usr/share/nginx/html
-
-EXPOSE 8080
-
+WORKDIR /usr/share/nginx/html
+COPY --from=build /app/dist .
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
