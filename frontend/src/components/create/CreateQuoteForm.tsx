@@ -74,6 +74,7 @@ export default function CreateQuoteForm() {
             placeholder="e.g., Albert Einstein"
             className="w-full p-2 border rounded"
             style={{ borderColor: "#175873" }}
+            required
           />
         </label>
 
