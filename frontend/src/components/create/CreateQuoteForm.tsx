@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useUser } from "@clerk/clerk-react";
 import { useAddQuote } from "../../hooks/useAddQuote";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function CreateQuoteForm() {
@@ -52,7 +52,6 @@ export default function CreateQuoteForm() {
 
   return (
     <>
-      <ToastContainer />
       <form onSubmit={handleSubmit} className="space-y-6 text-[#0c1446]">
         <label className="block">
           <span className="text-sm font-medium">Quote Text</span>
