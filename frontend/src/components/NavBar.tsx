@@ -9,10 +9,11 @@ import { Link } from "@tanstack/react-router";
 export default function NavBar() {
   return (
     <div
-      className="navbar sticky top-0 z-50 shadow-md px-4"
+      className="navbar sticky top-0 z-50 shadow-md px-4 relative"
       style={{ backgroundColor: "#175873" }}
     >
-      <div className="flex-1 text-xl font-bold">
+      {/* Left: Logo */}
+      <div className="flex-none text-xl font-bold">
         <Link
           to="/"
           className="btn btn-ghost text-xl text-white hover:bg-[#0c1446] transition-colors duration-200"
@@ -22,7 +23,25 @@ export default function NavBar() {
         </Link>
       </div>
 
-      <div className="flex-none lg:hidden">
+      {/* Center: Always-visible Explore button */}
+      <div className="absolute left-1/2 transform -translate-x-1/2">
+        <Link
+          to="/explore"
+          className="text-white text-lg font-semibold px-6 py-3 rounded transition-colors"
+          style={{ backgroundColor: "#2b7c85" }}
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.backgroundColor = "#0c1446")
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.backgroundColor = "#2b7c85")
+          }
+        >
+          Explore
+        </Link>
+      </div>
+
+      {/* Right: Sign In / User Menu & Desktop Nav */}
+      <div className="flex-none ml-auto">
         <SignedOut>
           <SignInButton>
             <button
@@ -39,8 +58,9 @@ export default function NavBar() {
             </button>
           </SignInButton>
         </SignedOut>
+
         <SignedIn>
-          <div className="dropdown dropdown-end">
+          <div className="dropdown dropdown-end lg:hidden">
             <label tabIndex={0} className="btn btn-ghost text-white">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -64,30 +84,9 @@ export default function NavBar() {
             >
               <li>
                 <Link
-                  to="/explore"
-                  className="btn text-white hover:bg-[#87aca3]"
-                  style={{ backgroundColor: "#2b7c85" }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.backgroundColor = "#0c1446")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.backgroundColor = "#2b7c85")
-                  }
-                >
-                  Explore
-                </Link>
-              </li>
-              <li>
-                <Link
                   to="/create"
                   className="btn text-white hover:bg-[#87aca3]"
                   style={{ backgroundColor: "#2b7c85" }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.backgroundColor = "#0c1446")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.backgroundColor = "#2b7c85")
-                  }
                 >
                   Create
                 </Link>
@@ -97,12 +96,6 @@ export default function NavBar() {
                   to="/library"
                   className="btn text-white hover:bg-[#87aca3]"
                   style={{ backgroundColor: "#2b7c85" }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.backgroundColor = "#0c1446")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.backgroundColor = "#2b7c85")
-                  }
                 >
                   Library
                 </Link>
@@ -112,37 +105,8 @@ export default function NavBar() {
               </li>
             </ul>
           </div>
-        </SignedIn>
-      </div>
 
-      <div className="hidden lg:flex">
-        <SignedOut>
-          <SignInButton>
-            <button
-              className="btn text-white"
-              style={{ backgroundColor: "#2b7c85" }}
-            >
-              Sign In
-            </button>
-          </SignInButton>
-        </SignedOut>
-        <SignedIn>
-          <ul className="menu menu-horizontal px-1">
-            <li>
-              <Link
-                to="/explore"
-                className="btn text-white hover:bg-[#87aca3]"
-                style={{ backgroundColor: "#2b7c85" }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.backgroundColor = "#0c1446")
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.backgroundColor = "#2b7c85")
-                }
-              >
-                Explore
-              </Link>
-            </li>
+          <ul className="menu menu-horizontal hidden lg:flex gap-2">
             <li>
               <Link
                 to="/create"
