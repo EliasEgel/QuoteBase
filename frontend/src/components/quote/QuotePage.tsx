@@ -5,6 +5,7 @@ import { useAddFavorite } from "../../hooks/useAddFavorite";
 import { useDeleteQuote } from "../../hooks/useDeleteQuote";
 import AddToBookDropdown from "./AddToBookDropdown";
 import { useNavigate } from "@tanstack/react-router";
+import { toast } from "react-toastify";
 
 type QuotePageProp = {
   id: string;
@@ -24,12 +25,41 @@ export default function QuotePage({ id }: QuotePageProp) {
 
   const handleRemoveFavorite = () => {
     if (!user) return;
-    removeFavorite({ clerkId: user.id, quoteId: Number(id) });
+    removeFavorite(
+      { clerkId: user.id, quoteId: Number(id) },
+      {
+        onSuccess: () => {
+          toast.info("Quote removed from favorites.", {
+            position: "top-center",
+            autoClose: 3000,
+          });
+        },
+        onError: (error: Error) => {
+          toast.error(`Error: ${error.message}`, {
+            position: "top-center",
+            autoClose: 3000,
+          });
+        },
+      }
+    );
   };
 
   const handleAddFavorite = () => {
     if (!user) return;
-    addFavorite(Number(id));
+    addFavorite(Number(id), {
+      onSuccess: () => {
+        toast.success("Quote added to favorites!", {
+          position: "top-center",
+          autoClose: 3000,
+        });
+      },
+      onError: (error: Error) => {
+        toast.error(`Error: ${error.message}`, {
+          position: "top-center",
+          autoClose: 3000,
+        });
+      },
+    });
   };
 
   const handleDeleteQuote = () => {
@@ -37,7 +67,17 @@ export default function QuotePage({ id }: QuotePageProp) {
     if (window.confirm("Are you sure you want to delete this quote?")) {
       deleteQuote(Number(id), {
         onSuccess: () => {
+          toast.success("Quote deleted.", {
+            position: "top-center",
+            autoClose: 3000,
+          });
           navigate({ to: "/library" });
+        },
+        onError: (error: Error) => {
+          toast.error(`Error: ${error.message}`, {
+            position: "top-center",
+            autoClose: 3000,
+          });
         },
       });
     }
@@ -119,4 +159,3 @@ export default function QuotePage({ id }: QuotePageProp) {
     </div>
   );
 }
-

@@ -3,6 +3,7 @@ import { useUserBooks } from "../../hooks/useUserBooks";
 import { useAddQuoteToBook } from "../../hooks/useAddQuoteToBook";
 import { useUser } from "@clerk/clerk-react";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 type AddToBookDropdownProps = {
   quoteId: number;
@@ -17,9 +18,29 @@ export default function AddToBookDropdown({ quoteId }: AddToBookDropdownProps) {
 
   if (isLoading) return <p>Loading books...</p>;
 
+  const selectedBook = books.find((book: any) => book.id === selectedBookId);
+  const quoteAlreadyInBook = selectedBook?.quoteIds.includes(quoteId);
+
   const handleAdd = () => {
     if (!selectedBookId) return;
-    addQuoteToBook({ bookId: selectedBookId, quoteId });
+
+    addQuoteToBook(
+      { bookId: selectedBookId, quoteId },
+      {
+        onSuccess: () => {
+          toast.success("Quote added to book!", {
+            position: "top-center",
+            autoClose: 3000,
+          });
+        },
+        onError: (error: Error) => {
+          toast.error(`Error: ${error.message}`, {
+            position: "top-center",
+            autoClose: 3000,
+          });
+        },
+      }
+    );
   };
 
   return (
@@ -43,7 +64,7 @@ export default function AddToBookDropdown({ quoteId }: AddToBookDropdownProps) {
         })}
       </select>
 
-      {selectedBookId && (
+      {selectedBookId && !quoteAlreadyInBook && (
         <button
           onClick={handleAdd}
           disabled={isPending}
