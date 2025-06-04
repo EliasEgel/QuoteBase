@@ -4,6 +4,7 @@ import { useBook } from "../../hooks/useBook";
 import { useRemoveQuoteFromBook } from "../../hooks/useRemoveQuoteFromBook";
 import { useUser } from "@clerk/clerk-react";
 import QuoteCard from "../QuoteCard";
+import { toast } from "react-toastify";
 
 type BookPageProps = {
   id: string;
@@ -20,7 +21,23 @@ export default function BookPage({ id }: BookPageProps) {
   if (!book) return <div>Book not found</div>;
 
   const handleRemove = (quoteId: number) => {
-    removeQuote({ bookId: Number(id), quoteId });
+    removeQuote(
+      { bookId: Number(id), quoteId },
+      {
+        onSuccess: () => {
+          toast.info("Quote removed from book.", {
+            position: "top-center",
+            autoClose: 3000,
+          });
+        },
+        onError: (error: Error) => {
+          toast.error(`Error: ${error.message}`, {
+            position: "top-center",
+            autoClose: 3000,
+          });
+        },
+      }
+    );
   };
 
   return (

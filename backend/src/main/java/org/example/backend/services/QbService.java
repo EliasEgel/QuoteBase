@@ -145,7 +145,7 @@ public class QbService {
 
                     return userRepo.save(newUser);
                 }
-                ); // Auto-create user if not found
+                );
 
         Quote quote = quoteRepo.findById(quoteId)
                 .orElseThrow(() -> new RuntimeException("Quote not found"));
@@ -208,12 +208,10 @@ public class QbService {
         Quote quote = quoteRepo.findById(quoteId)
                 .orElseThrow(() -> new RuntimeException("Quote not found"));
 
-        // Remove quote from all books
         for (Book book : new HashSet<>(quote.getBooks())) {
             book.getQuotes().remove(quote);
         }
 
-        // Remove quote from all users' favorites
         for (User user : new HashSet<>(quote.getFavoritedByUsers())) {
             user.getFavoriteQuotes().remove(quote);
         }
