@@ -116,7 +116,7 @@ export default function QuotePage({ id }: QuotePageProp) {
           </div>
         )}
 
-        <blockquote className="text-xl italic leading-relaxed">
+        <blockquote className="text-xl italic leading-relaxed p-1">
           “{quote.text}”
           <footer className="mt-4 text-right text-base font-medium">
             — {quote.author}{" "}
