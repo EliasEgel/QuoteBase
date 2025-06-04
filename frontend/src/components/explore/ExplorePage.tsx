@@ -3,6 +3,7 @@ import ExploreHeader from "./ExploreHeader";
 import QuoteCard from "../QuoteCard";
 import { useQuotes } from "../../hooks/useQuotes";
 import SearchBar from "./SearchBar";
+import Pagination from "../Pagination";
 
 export default function ExplorePage() {
   const [page, setPage] = useState(0);
@@ -10,7 +11,6 @@ export default function ExplorePage() {
 
   const { data: quotesPage, isLoading, error } = useQuotes(page, 6, search);
   const totalPages = quotesPage?.totalPages ?? 0;
-  const isLastPage = page >= totalPages - 1;
   const quotes = quotesPage?.content ?? [];
 
   const handleSearch = (term: string) => {
@@ -38,42 +38,11 @@ export default function ExplorePage() {
         </div>
       )}
 
-      <div className="flex justify-center gap-4 pt-6">
-        {!isLoading && page > 0 && (
-          <button
-            onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
-            className="px-4 py-2 rounded text-white transition-colors"
-            style={{
-              backgroundColor: "#2b7c85",
-            }}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.backgroundColor = "#0c1446")
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.backgroundColor = "#2b7c85")
-            }
-          >
-            Previous
-          </button>
-        )}
-        {!isLoading && !isLastPage && (
-          <button
-            onClick={() => setPage((prev) => prev + 1)}
-            className="px-4 py-2 rounded text-white transition-colors"
-            style={{
-              backgroundColor: "#2b7c85",
-            }}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.backgroundColor = "#0c1446")
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.backgroundColor = "#2b7c85")
-            }
-          >
-            Next
-          </button>
-        )}
-      </div>
+      <Pagination
+        currentPage={page}
+        totalPages={totalPages}
+        onPageChange={setPage}
+      />
     </div>
   );
 }
