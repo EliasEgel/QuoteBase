@@ -6,6 +6,7 @@ import { useDeleteQuote } from "../../hooks/useDeleteQuote";
 import AddToBookDropdown from "./AddToBookDropdown";
 import { useNavigate } from "@tanstack/react-router";
 import { toast } from "react-toastify";
+import { useState } from "react";
 
 type QuotePageProp = {
   id: string;
@@ -19,9 +20,13 @@ export default function QuotePage({ id }: QuotePageProp) {
   const { mutate: addFavorite, isPending: isAdding } = useAddFavorite();
   const { mutate: deleteQuote, isPending: isDeleting } = useDeleteQuote();
 
+  const [isEditing, setIsEditing] = useState(false);
+
   if (isLoading) return <div>Loading...</div>;
   if (error instanceof Error) return <div>Error: {error.message}</div>;
   if (!quote) return <div>No quote found</div>;
+
+  // --- handlers (unchanged) ---
 
   const handleRemoveFavorite = () => {
     if (!user) return;
@@ -90,12 +95,12 @@ export default function QuotePage({ id }: QuotePageProp) {
         style={{ backgroundColor: "#87aca3", border: "1px solid #175873" }}
       >
         {quote.isCreatedByUser && (
-          <div
-            className="absolute top-2 right-2 text-yellow-400"
-            title="You created this quote"
+          <button
+            onClick={() => setIsEditing((prev) => !prev)}
+            className="absolute top-2 right-2 text-sm px-3 py-1 rounded bg-[#0c1446] text-white hover:bg-[#2b7c85] transition"
           >
-            ⭐
-          </div>
+            {isEditing ? "Cancel Edit" : "Edit Your Quote"}
+          </button>
         )}
         <blockquote className="text-xl italic leading-relaxed">
           “{quote.text}”
@@ -145,7 +150,7 @@ export default function QuotePage({ id }: QuotePageProp) {
 
           <AddToBookDropdown quoteId={Number(id)} />
 
-          {quote.isCreatedByUser && (
+          {quote.isCreatedByUser && isEditing && (
             <button
               onClick={handleDeleteQuote}
               disabled={isDeleting}
