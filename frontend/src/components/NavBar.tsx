@@ -9,7 +9,7 @@ import { Link } from "@tanstack/react-router";
 export default function NavBar() {
   return (
     <div
-      className="navbar sticky top-0 z-50 shadow-md px-4 relative"
+      className="navbar top-0 z-50 shadow-md px-4 relative"
       style={{ backgroundColor: "#175873" }}
     >
       {/* Left: Logo */}
