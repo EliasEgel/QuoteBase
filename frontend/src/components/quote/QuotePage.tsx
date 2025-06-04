@@ -94,14 +94,28 @@ export default function QuotePage({ id }: QuotePageProp) {
         className="rounded-lg p-6 shadow-md relative"
         style={{ backgroundColor: "#87aca3", border: "1px solid #175873" }}
       >
-        {quote.isCreatedByUser && (
-          <button
-            onClick={() => setIsEditing((prev) => !prev)}
-            className="absolute top-2 right-2 text-sm px-3 py-1 rounded bg-[#0c1446] text-white hover:bg-[#2b7c85] transition"
-          >
-            {isEditing ? "Cancel Edit" : "Edit Your Quote"}
-          </button>
+        {(quote.isCreatedByUser || quote.isFavoritedByUser) && (
+          <div className="absolute top-2 right-2 flex items-center space-x-2">
+            {quote.isFavoritedByUser && (
+              <span
+                title="You favorited this quote"
+                className="text-yellow-400 text-lg"
+              >
+                ⭐
+              </span>
+            )}
+
+            {quote.isCreatedByUser && (
+              <button
+                onClick={() => setIsEditing((prev) => !prev)}
+                className="text-sm px-3 py-1 rounded bg-[#0c1446] text-white hover:bg-[#2b7c85] transition"
+              >
+                {isEditing ? "Cancel Edit" : "Edit Quote"}
+              </button>
+            )}
+          </div>
         )}
+
         <blockquote className="text-xl italic leading-relaxed">
           “{quote.text}”
           <footer className="mt-4 text-right text-base font-medium">
