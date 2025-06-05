@@ -97,7 +97,6 @@ public class QbService {
 
     @Transactional
     public Quote addQuote(QuoteRequestDto dto) {
-        // Find or create user
         User user = userRepo.findByClerkId(dto.clerkId())
                 .orElseGet(() -> {
                     User newUser = new User();
@@ -105,20 +104,13 @@ public class QbService {
                     return userRepo.save(newUser);
                 });
 
-        // Create quote
         Quote quote = new Quote();
         quote.setText(dto.text());
         quote.setAuthor(dto.author());
         quote.setSource(dto.source());
-        quote.setCreator(user); // Set creator
+        quote.setCreator(user);
 
-        Quote savedQuote = quoteRepo.save(quote);
-
-        // Add to user's favorites
-        user.getFavoriteQuotes().add(savedQuote);
-        savedQuote.getFavoritedByUsers().add(user);
-
-        return savedQuote;
+        return quoteRepo.save(quote);
     }
 
 

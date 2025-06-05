@@ -110,13 +110,13 @@ export default function QuotePage({ id }: QuotePageProp) {
                 onClick={() => setIsEditing((prev) => !prev)}
                 className="text-sm px-3 py-1 rounded bg-[#0c1446] text-white hover:bg-[#2b7c85] transition"
               >
-                {isEditing ? "Cancel Edit" : "Edit Quote"}
+                {isEditing ? "Cancel Edit" : "Edit Your Quote"}
               </button>
             )}
           </div>
         )}
 
-        <blockquote className="text-xl italic leading-relaxed p-1">
+        <blockquote className="text-xl italic leading-relaxed p-2">
           “{quote.text}”
           <footer className="mt-4 text-right text-base font-medium">
             — {quote.author}{" "}
