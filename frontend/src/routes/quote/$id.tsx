@@ -7,5 +7,5 @@ export const Route = createFileRoute('/quote/$id')({
 
 function RouteComponent() {
   const {id}=Route.useParams(); 
-  return <div><QuotePage id={id}/></div>
+  return <div className="text-center"><QuotePage id={id}/></div>
 }
