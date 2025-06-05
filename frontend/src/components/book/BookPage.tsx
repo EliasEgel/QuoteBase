@@ -44,7 +44,7 @@ export default function BookPage({ id }: BookPageProps) {
     <div className="max-w-4xl mx-auto px-4 py-12 space-y-6 text-[#0c1446] mt-16 text-center">
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold text-center">{book.title}</h1>
-        {user && (
+        {user?.id === book.clerkId && (
           <button
             onClick={() => setIsEditing((prev) => !prev)}
             className="btn btn-sm text-white transition-colors"
